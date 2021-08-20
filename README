@@ -1,0 +1,14 @@
+Web-based map of the Gameboy DMG-CPU B with overlays.
+
+Made with Leaflet:
+https://leafletjs.com/
+
+The actual images are not included in this repository. They must be manually exported from Inkscape
+and then processed by ./scripts/gen_tiles.sh
+
+Get Inkscape file from Furrtek:
+https://github.com/furrtek/DMG-CPU-Inside
+There is also a link where you can get the die shots from.
+
+See map in action:
+http://iceboy.a-singer.de/dmg_cpu_b_map/

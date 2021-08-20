@@ -1,0 +1,72 @@
+<html>
+<head>
+<title>DMG-CPU B Map</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="leaflet.css" />
+<script src="leaflet.js"></script>
+</head>
+<body>
+<div id="map" style="width: 100%; height: 100%;"></div>
+<script>
+
+	var digshadowAtr = "CC-BY-4.0 digshadow/<a href=\"https://siliconpr0n.org/map/nintendo/dmg-cpu-b/\">siliconpr0n.org</a>";
+	var siliconpr0nAtr = "CC-BY-4.0 <a href=\"https://siliconpr0n.org/map/nintendo/dmg-cpu-b/\">siliconpr0n.org</a>";
+	var furrtekAtr = "CC-BY-SA-4.0 <a href=\"https://github.com/furrtek/DMG-CPU-Inside\">Furrtek</a>";
+
+	var die_mz_20x = L.tileLayer('map/die_mz_20x/{z}/{y}/{x}.jpg', {
+		attribution: digshadowAtr,
+		maxNativeZoom: 6,
+		tileSize: 256
+	});
+
+	var die_s1_1_20x = L.tileLayer('map/die_s1_1_20x/{z}/{y}/{x}.jpg', {
+		attribution: siliconpr0nAtr,
+		maxNativeZoom: 6,
+		tileSize: 256
+	});
+
+	var cells = L.tileLayer('map/cells/{z}/{y}/{x}.png', {
+		attribution: furrtekAtr,
+		maxNativeZoom: 6,
+		tileSize: 256
+	});
+
+	var wires = L.tileLayer('map/wires/{z}/{y}/{x}.png', {
+		attribution: furrtekAtr,
+		maxNativeZoom: 6,
+		tileSize: 256
+	});
+
+	var labels = L.tileLayer('map/labels/{z}/{y}/{x}.png', {
+		attribution: furrtekAtr,
+		maxNativeZoom: 6,
+		tileSize: 256
+	});
+
+	var baseMaps = {
+		"DMG-CPU B: MZ 20x": die_mz_20x,
+		"DMG-CPU B: S1-1 20x": die_s1_1_20x
+	};
+
+	var overlayMaps = {
+		"Cells": cells,
+		"Wires": wires,
+		"Labels": labels
+	};
+
+	var map = L.map('map', {
+		crs: L.CRS.Simple,
+		center: [-128, 128],
+		zoom: 1,
+		minZoom: 0,
+		maxZoom: 7,
+		zoomSnap: 1,
+		zoomDelta: 1,
+		layers: [die_mz_20x, cells, wires, labels]
+	});
+
+	L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+</script>
+</body>
+</html>
