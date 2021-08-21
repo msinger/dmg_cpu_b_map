@@ -59,7 +59,9 @@
 			this._container = L.DomUtil.create('div', 'leaflet-control-minimap');
 			this._container.style.width = this.options.width + 'px';
 			this._container.style.height = this.options.height + 'px';
-			L.DomEvent.disableClickPropagation(this._container);
+			L.DomEvent.on(this._container, 'doubleclick', L.DomEvent.stopPropagation);
+			L.DomEvent.on(this._container, 'mousedown', L.DomEvent.stopPropagation);
+			L.DomEvent.on(this._container, 'mouseup', L.DomEvent.stopPropagation);
 			L.DomEvent.on(this._container, 'mousewheel', L.DomEvent.stopPropagation);
 
 			var mapOptions = {
@@ -100,6 +102,11 @@
 				this._miniMap.on('movestart', this._onMiniMapMoveStarted, this);
 				this._miniMap.on('move', this._onMiniMapMoving, this);
 				this._miniMap.on('moveend', this._onMiniMapMoved, this);
+			}, this));
+
+			this._miniMap.on('click', L.Util.bind(function (e) {
+				this._mainMap.setView(e.latlng, 6);
+				L.DomEvent.stopPropagation(e.originalEvent);
 			}, this));
 
 			return this._container;
