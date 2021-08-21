@@ -3,6 +3,9 @@ Web-based map of the Gameboy DMG-CPU B with overlays.
 Made with Leaflet:
 https://leafletjs.com/
 
+And Leaflet-Minimap:
+https://github.com/Norkart/Leaflet-MiniMap/
+
 The actual images are not included in this repository. They must be manually exported from Inkscape
 and then processed by ./scripts/gen_tiles.sh
 
