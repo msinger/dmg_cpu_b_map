@@ -116,10 +116,30 @@
 			touchZoom: false,
 			maxZoom: 0
 		}
-	 }).addTo(map);
+	}).addTo(map);
 
 	map.on('baselayerchange', function (e) {
 		miniMap.changeLayer(baseMapsMini[e.name]);
+	});
+
+	var src = L.control({ position: 'bottomleft' });
+
+	src.onAdd = function (map) {
+		var div = L.DomUtil.create('div', 'leaflet-control-attribution');
+		div.innerHTML = "<p><a href=\"https://github.com/msinger/dmg_cpu_b_map/\">Source code</a></p>";
+		return div;
+	};
+
+	src.addTo(map);
+
+	var coord = L.control({ position: 'bottomleft' });
+	var coordDiv = L.DomUtil.create('div', 'leaflet-control-attribution');
+	coordDiv.innerHTML = "<p>&nbsp;</p>";
+	coord.onAdd = function (map) { return coordDiv; };
+	coord.addTo(map);
+
+	map.on('mousemove', function (e) {
+		coordDiv.innerHTML = "<p>" + e.latlng.lat.toFixed(2) + ", " + e.latlng.lng.toFixed(2) + "</p>";
 	});
 
 </script>
