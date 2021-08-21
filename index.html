@@ -101,12 +101,14 @@
 
 	L.control.layers(baseMaps, overlayMaps).addTo(map);
 
+	var topWhiteRows = 22;
+
 	var miniMap = new L.Control.MiniMap(die_mz_20x_minimap, {
 		zoomLevelFixed: 0,
 		toggleDisplay: true,
-		centerFixed: [-128, 128],
+		centerFixed: [-128 - topWhiteRows / 2, 128],
 		width: 256,
-		height: 256,
+		height: 256 - topWhiteRows,
 		mapOptions: {
 			doubleClickZoom: false,
 			dragging: false,
