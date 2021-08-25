@@ -11,6 +11,8 @@
 <div id="map" style="width: 100%; height: 100%;"></div>
 <script>
 
+	var params = new URLSearchParams(document.location.search.substring(1));
+
 	var digshadowAtr = "CC-BY-4.0 digshadow/<a href=\"https://siliconpr0n.org/map/nintendo/dmg-cpu-b/\">siliconpr0n.org</a>";
 	var siliconpr0nAtr = "CC-BY-4.0 <a href=\"https://siliconpr0n.org/map/nintendo/dmg-cpu-b/\">siliconpr0n.org</a>";
 	var furrtekAtr = "CC-BY-SA-4.0 <a href=\"https://github.com/furrtek/DMG-CPU-Inside\">Furrtek</a>";
@@ -87,6 +89,10 @@
 		"Labels": labels
 	};
 
+	var wiresp = params.get("wires");
+	var def_layers = [die_mz_20x, cells, wires, labels];
+	if (wiresp == '0') def_layers = [die_mz_20x, cells, labels];
+
 	var map = L.map('map', {
 		crs: L.CRS.Simple,
 		center: [-128, 128],
@@ -95,7 +101,7 @@
 		maxZoom: 7,
 		zoomSnap: 1,
 		zoomDelta: 1,
-		layers: [die_mz_20x, cells, wires, labels],
+		layers: def_layers,
 		maxBounds: [[-512, -256], [256, 512]]
 	});
 
@@ -4089,8 +4095,6 @@
 	map.on('mousemove', function (e) {
 		coordDiv.innerHTML = "<p>" + e.latlng.lat.toFixed(2) + ", " + e.latlng.lng.toFixed(2) + "</p>";
 	});
-
-	var params = new URLSearchParams(document.location.search.substring(1));
 
 	var line = [];
 	for (var i = 0; i < 32; i++) {
