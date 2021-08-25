@@ -4087,6 +4087,65 @@
 		coordDiv.innerHTML = "<p>" + e.latlng.lat.toFixed(2) + ", " + e.latlng.lng.toFixed(2) + "</p>";
 	});
 
+	var params = new URLSearchParams(document.location.search.substring(1));
+
+	var line = [];
+	for (var i = 0; i < 32; i++) {
+		var l = params.get("line[" + i + "]");
+		if (l) {
+			var p = l.split(",");
+			if (p.length >= 4 && !(p.length & 1)) {
+				line[i] = [];
+				for (var j = 0; j < p.length; j += 2)
+					line[i][j/2] = [p[j], p[j+1]];
+			}
+		}
+	}
+
+	var mark = [];
+	for (var i = 0; i < 32; i++) {
+		var m = params.get("mark[" + i + "]");
+		if (m) {
+			var p = m.split(",");
+			var s = '';
+			if (p.length == 3) {
+				s = p[2];
+				p = [p[0], p[1]];
+			}
+			if (p.length == 2) {
+				mark[i] = { p: p, s: s };
+				cells['mark[' + i + ']'] = p;
+			}
+		}
+	}
+
+	L.polyline(line, { color: 'red' }).addTo(map);
+	L.polyline(line, { color: 'red' }).addTo(miniMap._miniMap);
+
+	for (var m of mark) {
+		L.marker(m.p, { title: m.s }).addTo(map);
+		L.marker(m.p, { title: m.s }).addTo(miniMap._miniMap);
+	}
+
+	var view = params.get("view");
+	if (view) {
+		var p = view.split(",");
+		var z = 6;
+		if (p.length == 1) {
+			var coords = cells[p[0].toLowerCase()];
+			if (coords) {
+				z = 7;
+				p = coords;
+			}
+		}
+		if (p.length == 3) {
+			z = p[2];
+			p = [p[0], p[1]];
+		}
+		if (p.length == 2)
+			map.setView(p, z);
+	}
+
 </script>
 </body>
 </html>
