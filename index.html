@@ -4101,6 +4101,8 @@
 				line[i] = [];
 				for (var j = 0; j < p.length; j += 2)
 					line[i][j/2] = [p[j], p[j+1]];
+				var b = L.polyline(line[i]).getBounds();
+				cells['line[' + i + ']'] = [b.getSouthWest().lat, b.getSouthWest().lng, b.getNorthEast().lat, b.getNorthEast().lng];
 			}
 		}
 	}
@@ -4122,8 +4124,11 @@
 		}
 	}
 
-	L.polyline(line, { color: 'red' }).addTo(map);
-	L.polyline(line, { color: 'red' }).addTo(miniMap._miniMap);
+	if (line.length > 0) {
+		var b = L.polyline(line, { color: 'red' }).addTo(map).getBounds();
+		L.polyline(line, { color: 'red' }).addTo(miniMap._miniMap);
+		cells['line[]'] = [b.getSouthWest().lat, b.getSouthWest().lng, b.getNorthEast().lat, b.getNorthEast().lng];
+	}
 
 	for (var m of mark) {
 		L.marker(m.p, { title: m.s }).addTo(map);
