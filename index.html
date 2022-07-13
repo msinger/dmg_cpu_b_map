@@ -4053,6 +4053,59 @@
 		osc: [-133.5, 238, -114.5, 254.3]
 	};
 
+	var paramDraw = params.get("draw") != null;
+	if (paramDraw) {
+		var dline = [];
+		var dlinePoly = null;
+		var lineEditBox = L.control({ position: 'bottomleft' });
+		var lineEdit = document.createElement('input');
+		lineEdit.type = "text";
+		lineEdit.onkeydown = function (e) {
+			if (e.key == 'Enter') {
+				var coords = this.value;
+				dline = [];
+				if (coords) {
+					var p = coords.split(",");
+					if (p.length >= 4 && !(p.length & 1)) {
+						for (var i = 0; i < p.length; i += 2)
+							dline[i/2] = [p[i], p[i+1]];
+					}
+				}
+				if (dlinePoly)
+					dlinePoly.removeFrom(map);
+				dlinePoly = null;
+				if (dline.length > 1)
+					dlinePoly = L.polyline(dline, { color: 'green' }).addTo(map);
+			}
+		};
+
+		lineEditBox.onAdd = function (map) {
+			var div = L.DomUtil.create('div', 'leaflet-control-attribution');
+			var p = document.createElement('p');
+			p.appendChild(lineEdit);
+			div.appendChild(p);
+			return div;
+		};
+
+		lineEditBox.addTo(map);
+
+		map.on('click', function (e) {
+			dline[dline.length] = [e.latlng.lat.toFixed(2), e.latlng.lng.toFixed(2)];
+			var t = "";
+			for (var i = 0; i < dline.length; i++) {
+				if (i > 0)
+					t += ",";
+				t += dline[i][0] + "," + dline[i][1];
+			}
+			lineEdit.value = t;
+			if (dlinePoly)
+				dlinePoly.removeFrom(map);
+			dlinePoly = null;
+			if (dline.length > 1)
+				dlinePoly = L.polyline(dline, { color: 'green' }).addTo(map);
+		});
+	}
+
 	var src = L.control({ position: 'bottomleft' });
 	var cellSearch = document.createElement('input');
 	cellSearch.type = "text";
