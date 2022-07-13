@@ -4090,7 +4090,18 @@
 		lineEditBox.addTo(map);
 
 		map.on('click', function (e) {
-			dline[dline.length] = [e.latlng.lat.toFixed(2), e.latlng.lng.toFixed(2)];
+			if (!window.event.ctrlKey) return;
+			var lat = e.latlng.lat.toFixed(2);
+			var lng = e.latlng.lng.toFixed(2);
+			if (window.event.shiftKey && dline.length >= 1) {
+				var dlat = Math.abs(lat - dline[dline.length - 1][0]);
+				var dlng = Math.abs(lng - dline[dline.length - 1][1]);
+				if (dlat < dlng)
+					lat = dline[dline.length - 1][0];
+				else
+					lng = dline[dline.length - 1][1];
+			}
+			dline[dline.length] = [lat, lng];
 			var t = "";
 			for (var i = 0; i < dline.length; i++) {
 				if (i > 0)
