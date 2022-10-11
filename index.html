@@ -91,9 +91,15 @@
 		"Labels": labels
 	};
 
-	var wiresp = params.get("wires");
-	var def_layers = [die_mz_20x, cells, wires, labels];
-	if (wiresp == '0') def_layers = [die_mz_20x, cells, labels];
+	var shotp   = params.get("shot");
+	var cellsp  = params.get("cells");
+	var wiresp  = params.get("wires");
+	var labelsp = params.get("labels");
+	var def_layers = [die_mz_20x];
+	if (shotp   == "1") def_layers = [die_s1_1_20x];
+	if (cellsp  != "0") def_layers.push(cells);
+	if (wiresp  != "0") def_layers.push(wires);
+	if (labelsp != "0") def_layers.push(labels);
 
 	var map = L.map('map', {
 		crs: L.CRS.Simple,
