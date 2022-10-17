@@ -17,7 +17,8 @@
 
 	var digshadowAtr = "CC-BY-4.0 digshadow/<a href=\"https://siliconpr0n.org/map/nintendo/dmg-cpu-b/\">siliconpr0n.org</a>";
 	var siliconpr0nAtr = "CC-BY-4.0 <a href=\"https://siliconpr0n.org/map/nintendo/dmg-cpu-b/\">siliconpr0n.org</a>";
-	var furrtekAtr = "CC-BY-SA-4.0 <a href=\"https://github.com/furrtek/DMG-CPU-Inside\">Furrtek</a>";
+	var furrtekAtr = "CC-BY-SA-4.0 <a href=\"https://github.com/furrtek/DMG-CPU-Inside\">Furrtek</a> &amp; <a href=\"https://github.com/msinger/dmg-schematics\">Règis Galland &amp; Michael Singer</a>";
+	var iceboyAtr = "CC-BY-SA-4.0 <a href=\"https://github.com/msinger/dmg-schematics\">Règis Galland &amp; Michael Singer</a>";
 
 	var die_mz_20x = L.tileLayer('map/die_mz_20x/{z}/{y}/{x}.jpg', {
 		attribution: digshadowAtr,
@@ -75,6 +76,30 @@
 		bounds: [[-256, 0], [0, 256]]
 	});
 
+	var cells_new = L.tileLayer('map/cells_new/{z}/{y}/{x}.png', {
+		attribution: iceboyAtr,
+		maxNativeZoom: 6,
+		tileSize: 256,
+		noWrap: true,
+		bounds: [[-256, 0], [0, 256]]
+	});
+
+	var wires_new = L.tileLayer('map/wires_new/{z}/{y}/{x}.png', {
+		attribution: iceboyAtr,
+		maxNativeZoom: 6,
+		tileSize: 256,
+		noWrap: true,
+		bounds: [[-256, 0], [0, 256]]
+	});
+
+	var labels_new = L.tileLayer('map/labels_new/{z}/{y}/{x}.png', {
+		attribution: iceboyAtr,
+		maxNativeZoom: 6,
+		tileSize: 256,
+		noWrap: true,
+		bounds: [[-256, 0], [0, 256]]
+	});
+
 	var baseMaps = {
 		"DMG-CPU B: MZ 20x": die_mz_20x,
 		"DMG-CPU B: S1-1 20x": die_s1_1_20x
@@ -88,7 +113,10 @@
 	var overlayMaps = {
 		"Cells": cells,
 		"Wires": wires,
-		"Labels": labels
+		"Labels": labels,
+		"Cells [new-testing]": cells_new,
+		"Wires [new-testing]": wires_new,
+		"Labels [new-testing]": labels_new
 	};
 
 	var shotp   = params.get("shot");
