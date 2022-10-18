@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="Control.MiniMap.css">
 <script src="leaflet.js"></script>
 <script src="Control.MiniMap.js"></script>
-<script src="cells.js"></script>
+<script src="coords.js"></script>
 </head>
 <body style="width: 100%; height: 100%; margin: 0px;">
 <div id="map" style="width: 100%; height: 100%;"></div>
@@ -229,24 +229,32 @@
 		});
 	}
 
+	function find_grp(n, t = "") {
+		var cgrp = null;
+		var wgrp = null;
+		if (t != "w")
+			cgrp = cells_grp[n.trim().toLowerCase()];
+		if (t != "c")
+			wgrp = wires_grp[n.trim().toLowerCase()];
+		var ret = [];
+		if (cgrp)
+			for (var x of cgrp)
+				ret.push({ t: "c", i: cells_cn[x] });
+		if (wgrp)
+			for (var x of wgrp)
+				ret.push({ t: "w", i: wires_cn[x] });
+		return ret;
+	}
+
 	var src = L.control({ position: 'bottomleft' });
 	var cellSearch = document.createElement('input');
 	cellSearch.type = "text";
 	cellSearch.onkeydown = function (e) {
 		if (e.key == 'Enter') {
-			var coords = cells[this.value.toLowerCase()];
-			if (coords) {
-				var zoom = 7;
-				if (coords.length == 3) {
-					zoom = coords[2];
-					coords = [coords[0], coords[1]];
-				}
-				if (coords.length == 4)
-					map.fitBounds([[coords[0], coords[1]], [coords[2], coords[3]]]);
-				else
-					map.setView(coords, zoom);
-			}
-			this.value = "";
+			var res = find_grp(this.value, "c");
+			if (res.length == 1)
+				map.fitBounds([[res[0].i.l[0], res[0].i.l[1]], [res[0].i.l[2], res[0].i.l[3]]]);
+			this.setSelectionRange(0, this.value.length);
 		}
 	};
 
@@ -282,8 +290,6 @@
 				line[i] = [];
 				for (var j = 0; j < p.length; j += 2)
 					line[i][j/2] = [p[j], p[j+1]];
-				var b = L.polyline(line[i]).getBounds();
-				cells['line[' + i + ']'] = [b.getSouthWest().lat, b.getSouthWest().lng, b.getNorthEast().lat, b.getNorthEast().lng];
 			}
 		}
 	}
@@ -300,7 +306,6 @@
 			}
 			if (p.length == 2) {
 				mark[i] = { p: p, s: s };
-				cells['mark[' + i + ']'] = p;
 			}
 		}
 	}
@@ -308,7 +313,6 @@
 	if (line.length > 0) {
 		var b = L.polyline(line, { color: 'red' }).addTo(map).getBounds();
 		L.polyline(line, { color: 'red' }).addTo(miniMap._miniMap);
-		cells['line[]'] = [b.getSouthWest().lat, b.getSouthWest().lng, b.getNorthEast().lat, b.getNorthEast().lng];
 	}
 
 	for (var m of mark) {
@@ -321,11 +325,9 @@
 		var p = view.split(",");
 		var z = 6;
 		if (p.length == 1) {
-			var coords = cells[p[0].toLowerCase()];
-			if (coords) {
-				z = 7;
-				p = coords;
-			}
+			var res = find_grp(p[0], "c");
+			if (res.length >= 1)
+				p = [res[0].i.l[0], res[0].i.l[1], res[0].i.l[2], res[0].i.l[3]];
 		}
 		if (p.length == 4)
 			map.fitBounds([[p[0], p[1]], [p[2], p[3]]]);
