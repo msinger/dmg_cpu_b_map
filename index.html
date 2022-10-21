@@ -232,6 +232,14 @@
 	var bboxes = {};
 
 	function find_grp(n, t = "") {
+		if (n.trim().substring(0, 2).trim() == "c:") {
+			if (t != "w" && cells_cn[n.trim().substring(2).trim()])
+				return [{ t: "c", i: cells_cn[n.trim().substring(2).trim()] }];
+		}
+		if (n.trim().substring(0, 2).trim() == "w:") {
+			if (t != "c" && wires_cn[n.trim().substring(2).trim()])
+				return [{ t: "w", i: wires_cn[n.trim().substring(2).trim()] }];
+		}
 		bbox = bboxes[n.trim()];
 		if (bbox)
 			return [{ t: "b", i: bbox }];
@@ -257,18 +265,44 @@
 		return [];
 	}
 
+	function wire_polyline(w) {
+		var lines = [];
+		for (var l of w.l) {
+			var line = [];
+			for (var i = 0; i < l.length; i += 2)
+				line[i/2] = [l[i], l[i+1]];
+			lines.push(line);
+		}
+		return L.polyline(lines, { color: 'cyan' });
+	}
+
+	var searchGeometry = null;
+
 	var src = L.control({ position: 'bottomleft' });
 	var cellSearch = document.createElement('input');
 	cellSearch.type = "text";
 	cellSearch.onkeydown = function (e) {
 		if (e.key == 'Enter') {
-			var res = find_grp(this.value, "c");
+			if (searchGeometry) {
+				searchGeometry[0].removeFrom(map);
+				searchGeometry[1].removeFrom(miniMap._miniMap);
+			}
+			searchGeometry = null;
+			var res = find_grp(this.value);
 			if (res.length >= 1) {
-				var p = res[0].i.l;
-				if (p.length == 4)
-					map.fitBounds([[p[0], p[1]], [p[2], p[3]]]);
-				else
-					map.setView(p, 7);
+				if (res[0].t == "w") {
+					var pl = wire_polyline(res[0].i);
+					map.fitBounds(pl.getBounds());
+					searchGeometry = [pl, L.polyline(pl.getLatLngs(), { color: 'cyan' })];
+					searchGeometry[0].addTo(map);
+					searchGeometry[1].addTo(miniMap._miniMap);
+				} else {
+					var p = res[0].i.l;
+					if (p.length == 4)
+						map.fitBounds([[p[0], p[1]], [p[2], p[3]]]);
+					else
+						map.setView(p, 7);
+				}
 			}
 			this.setSelectionRange(0, this.value.length);
 		}
@@ -345,11 +379,24 @@
 		var p = view.split(",");
 		var z = 6;
 		if (p.length == 1) {
-			var res = find_grp(p[0], "c");
+			var res = find_grp(p[0]);
 			if (res.length >= 1) {
-				if (res[0].t == "b")
-					z = 7;
-				p = res[0].i.l;
+				if (res[0].t == "w") {
+					p = [];
+					var pl = wire_polyline(res[0].i);
+					map.fitBounds(pl.getBounds());
+					if (searchGeometry) {
+						searchGeometry[0].removeFrom(map);
+						searchGeometry[1].removeFrom(miniMap._miniMap);
+					}
+					searchGeometry = [pl, L.polyline(pl.getLatLngs(), { color: 'cyan' })];
+					searchGeometry[0].addTo(map);
+					searchGeometry[1].addTo(miniMap._miniMap);
+				} else {
+					if (res[0].t == "b")
+						z = 7;
+					p = res[0].i.l;
+				}
 			}
 		}
 		if (p.length == 4)
