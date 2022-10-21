@@ -229,7 +229,12 @@
 		});
 	}
 
+	var bboxes = {};
+
 	function find_grp(n, t = "") {
+		bbox = bboxes[n.trim()];
+		if (bbox)
+			return [{ t: "b", i: bbox }];
 		var cgrp = null;
 		var wgrp = null;
 		if (t != "w")
@@ -243,7 +248,13 @@
 		if (wgrp)
 			for (var x of wgrp)
 				ret.push({ t: "w", i: wires_cn[x] });
-		return ret;
+		if (ret.length >= 1)
+			return ret;
+		if (t != "w" && cells_cn[n.trim()])
+			return [{ t: "c", i: cells_cn[n.trim()] }];
+		if (t != "c" && wires_cn[n.trim()])
+			return [{ t: "w", i: wires_cn[n.trim()] }];
+		return [];
 	}
 
 	var src = L.control({ position: 'bottomleft' });
@@ -252,8 +263,13 @@
 	cellSearch.onkeydown = function (e) {
 		if (e.key == 'Enter') {
 			var res = find_grp(this.value, "c");
-			if (res.length == 1)
-				map.fitBounds([[res[0].i.l[0], res[0].i.l[1]], [res[0].i.l[2], res[0].i.l[3]]]);
+			if (res.length >= 1) {
+				var p = res[0].i.l;
+				if (p.length == 4)
+					map.fitBounds([[p[0], p[1]], [p[2], p[3]]]);
+				else
+					map.setView(p, 7);
+			}
 			this.setSelectionRange(0, this.value.length);
 		}
 	};
@@ -290,6 +306,8 @@
 				line[i] = [];
 				for (var j = 0; j < p.length; j += 2)
 					line[i][j/2] = [p[j], p[j+1]];
+				var b = L.polyline(line[i]).getBounds();
+				bboxes['line[' + i + ']'] = { l: [b.getSouthWest().lat, b.getSouthWest().lng, b.getNorthEast().lat, b.getNorthEast().lng] };
 			}
 		}
 	}
@@ -306,6 +324,7 @@
 			}
 			if (p.length == 2) {
 				mark[i] = { p: p, s: s };
+				bboxes['mark[' + i + ']'] = { l: p };
 			}
 		}
 	}
@@ -313,6 +332,7 @@
 	if (line.length > 0) {
 		var b = L.polyline(line, { color: 'red' }).addTo(map).getBounds();
 		L.polyline(line, { color: 'red' }).addTo(miniMap._miniMap);
+		bboxes['line[]'] = { l: [b.getSouthWest().lat, b.getSouthWest().lng, b.getNorthEast().lat, b.getNorthEast().lng] };
 	}
 
 	for (var m of mark) {
@@ -326,8 +346,11 @@
 		var z = 6;
 		if (p.length == 1) {
 			var res = find_grp(p[0], "c");
-			if (res.length >= 1)
-				p = [res[0].i.l[0], res[0].i.l[1], res[0].i.l[2], res[0].i.l[3]];
+			if (res.length >= 1) {
+				if (res[0].t == "b")
+					z = 7;
+				p = res[0].i.l;
+			}
 		}
 		if (p.length == 4)
 			map.fitBounds([[p[0], p[1]], [p[2], p[3]]]);
