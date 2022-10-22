@@ -283,6 +283,8 @@
 		return box;
 	}
 
+	var prevSearch = "";
+	var prevSearchIndex = 0;
 	var searchGeometry = null;
 
 	var src = L.control({ position: 'bottomleft' });
@@ -297,20 +299,25 @@
 			searchGeometry = null;
 			var res = find_grp(this.value);
 			if (res.length >= 1) {
-				if (res[0].t == "w") {
-					var pl = wire_polyline(res[0].i);
+				var i = 0;
+				if (prevSearch == this.value)
+					i = (prevSearchIndex + 1) % res.length;
+				prevSearch = this.value;
+				prevSearchIndex = i;
+				if (res[i].t == "w") {
+					var pl = wire_polyline(res[i].i);
 					map.fitBounds(pl.getBounds());
 					searchGeometry = [pl, L.polyline(pl.getLatLngs(), { color: 'cyan' })];
 					searchGeometry[0].addTo(map);
 					searchGeometry[1].addTo(miniMap._miniMap);
 				} else {
-					var p = res[0].i.l;
+					var p = res[i].i.l;
 					if (p.length == 4)
 						map.fitBounds([[p[0], p[1]], [p[2], p[3]]]);
 					else
 						map.setView(p, 7);
-					if (res[0].t == "c") {
-						searchGeometry = [cell_box(res[0].i), cell_box(res[0].i)];
+					if (res[i].t == "c") {
+						searchGeometry = [cell_box(res[i].i), cell_box(res[i].i)];
 						searchGeometry[0].addTo(map);
 						searchGeometry[1].addTo(miniMap._miniMap);
 					}
