@@ -293,7 +293,8 @@
 			t = "Wire";
 		else
 			return;
-		searchGeometry[0].bindPopup(`<p>${t}: <b>${o.i.h}</b></p><p><a href="${netlistUrl}#${o.i.a}">Go to netlist</a></p>`).openPopup();
+		var content = `<p>${t}: <b>${o.i.h}</b></p><p><a href="${netlistUrl}#${o.i.a}">Go to netlist</a></p>`;
+		searchGeometry[0].bindPopup(content, { autoPan: false, keepInView: false }).openPopup();
 	}
 
 	var prevSearch = "";
@@ -319,22 +320,22 @@
 				prevSearchIndex = i;
 				if (res[i].t == "w") {
 					var pl = wire_polyline(res[i].i);
-					map.fitBounds(pl.getBounds());
 					searchGeometry = [pl, L.polyline(pl.getLatLngs(), { color: 'cyan' })];
 					searchGeometry[0].addTo(map);
 					searchGeometry[1].addTo(miniMap._miniMap);
 					open_popup(res[i]);
+					map.fitBounds(pl.getBounds());
 				} else {
-					var p = res[i].i.l;
-					if (p.length == 4)
-						map.fitBounds([[p[0], p[1]], [p[2], p[3]]]);
-					else
-						map.setView(p, 7);
 					if (res[i].t == "c") {
 						searchGeometry = [cell_box(res[i].i), cell_box(res[i].i)];
 						searchGeometry[0].addTo(map);
 						searchGeometry[1].addTo(miniMap._miniMap);
 						open_popup(res[i]);
+					var p = res[i].i.l;
+					if (p.length == 4)
+						map.fitBounds([[p[0], p[1]], [p[2], p[3]]]);
+					else
+						map.setView(p, 7);
 					}
 				}
 			}
@@ -422,11 +423,11 @@
 				if (res[0].t == "w") {
 					p = [];
 					var pl = wire_polyline(res[0].i);
-					map.fitBounds(pl.getBounds());
 					searchGeometry = [pl, L.polyline(pl.getLatLngs(), { color: 'cyan' })];
 					searchGeometry[0].addTo(map);
 					searchGeometry[1].addTo(miniMap._miniMap);
 					open_popup(res[0]);
+					map.fitBounds(pl.getBounds());
 				} else {
 					if (res[0].t == "b")
 						z = 7;
