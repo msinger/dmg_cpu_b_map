@@ -276,6 +276,13 @@
 		return L.polyline(lines, { color: 'cyan' });
 	}
 
+	function cell_box(c) {
+		var box = L.rectangle([[Math.min(c.l[0], c.l[2]) - 0.05, Math.min(c.l[1], c.l[3]) - 0.05],
+		                       [Math.max(c.l[0], c.l[2]) + 0.05, Math.max(c.l[1], c.l[3]) + 0.05]],
+		                      { color: 'cyan' });
+		return box;
+	}
+
 	var searchGeometry = null;
 
 	var src = L.control({ position: 'bottomleft' });
@@ -302,6 +309,11 @@
 						map.fitBounds([[p[0], p[1]], [p[2], p[3]]]);
 					else
 						map.setView(p, 7);
+					if (res[0].t == "c") {
+						searchGeometry = [cell_box(res[0].i), cell_box(res[0].i)];
+						searchGeometry[0].addTo(map);
+						searchGeometry[1].addTo(miniMap._miniMap);
+					}
 				}
 			}
 			this.setSelectionRange(0, this.value.length);
@@ -381,14 +393,14 @@
 		if (p.length == 1) {
 			var res = find_grp(p[0]);
 			if (res.length >= 1) {
+				if (searchGeometry) {
+					searchGeometry[0].removeFrom(map);
+					searchGeometry[1].removeFrom(miniMap._miniMap);
+				}
 				if (res[0].t == "w") {
 					p = [];
 					var pl = wire_polyline(res[0].i);
 					map.fitBounds(pl.getBounds());
-					if (searchGeometry) {
-						searchGeometry[0].removeFrom(map);
-						searchGeometry[1].removeFrom(miniMap._miniMap);
-					}
 					searchGeometry = [pl, L.polyline(pl.getLatLngs(), { color: 'cyan' })];
 					searchGeometry[0].addTo(map);
 					searchGeometry[1].addTo(miniMap._miniMap);
@@ -396,6 +408,11 @@
 					if (res[0].t == "b")
 						z = 7;
 					p = res[0].i.l;
+					if (res[0].t == "c") {
+						searchGeometry = [cell_box(res[0].i), cell_box(res[0].i)];
+						searchGeometry[0].addTo(map);
+						searchGeometry[1].addTo(miniMap._miniMap);
+					}
 				}
 			}
 		}
