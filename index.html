@@ -21,6 +21,8 @@
 	var furrtekAtr = "CC-BY-SA-4.0 <a href=\"https://github.com/furrtek/DMG-CPU-Inside\">Furrtek</a> &amp; <a href=\"https://github.com/msinger/dmg-schematics\">Règis Galland &amp; Michael Singer</a>";
 	var iceboyAtr = "CC-BY-SA-4.0 <a href=\"https://github.com/msinger/dmg-schematics\">Règis Galland &amp; Michael Singer</a>";
 
+	var netlistUrl = "http://iceboy.a-singer.de/doc/dmg_cpu_b_netlist.html";
+
 	var tl_die_mz_20x = L.tileLayer('map/die_mz_20x/{z}/{y}/{x}.jpg', {
 		attribution: digshadowAtr,
 		maxNativeZoom: 6,
@@ -283,6 +285,17 @@
 		return box;
 	}
 
+	function open_popup(o) {
+		var t;
+		if (o.t == "c")
+			t = "Cell";
+		else if (o.t == "w")
+			t = "Wire";
+		else
+			return;
+		searchGeometry[0].bindPopup(`<p>${t}: <b>${o.i.h}</b></p><p><a href="${netlistUrl}#${o.i.a}">Go to netlist</a></p>`).openPopup();
+	}
+
 	var prevSearch = "";
 	var prevSearchIndex = 0;
 	var searchGeometry = null;
@@ -310,6 +323,7 @@
 					searchGeometry = [pl, L.polyline(pl.getLatLngs(), { color: 'cyan' })];
 					searchGeometry[0].addTo(map);
 					searchGeometry[1].addTo(miniMap._miniMap);
+					open_popup(res[i]);
 				} else {
 					var p = res[i].i.l;
 					if (p.length == 4)
@@ -320,6 +334,7 @@
 						searchGeometry = [cell_box(res[i].i), cell_box(res[i].i)];
 						searchGeometry[0].addTo(map);
 						searchGeometry[1].addTo(miniMap._miniMap);
+						open_popup(res[i]);
 					}
 				}
 			}
@@ -411,6 +426,7 @@
 					searchGeometry = [pl, L.polyline(pl.getLatLngs(), { color: 'cyan' })];
 					searchGeometry[0].addTo(map);
 					searchGeometry[1].addTo(miniMap._miniMap);
+					open_popup(res[0]);
 				} else {
 					if (res[0].t == "b")
 						z = 7;
@@ -419,6 +435,7 @@
 						searchGeometry = [cell_box(res[0].i), cell_box(res[0].i)];
 						searchGeometry[0].addTo(map);
 						searchGeometry[1].addTo(miniMap._miniMap);
+						open_popup(res[0]);
 					}
 				}
 			}
