@@ -163,6 +163,8 @@
 		}
 	}).addTo(map);
 
+	L.DomEvent.disableClickPropagation(miniMap._miniMap._container);
+
 	map.on('baselayerchange', function (e) {
 		miniMap.changeLayer(baseMapsMini[e.name]);
 	});
@@ -195,6 +197,8 @@
 
 		lineEditBox.onAdd = function (map) {
 			var div = L.DomUtil.create('div', 'leaflet-control-attribution');
+			L.DomEvent.disableClickPropagation(div);
+			L.DomEvent.disableScrollPropagation(div);
 			var p = document.createElement('p');
 			p.appendChild(lineEdit);
 			div.appendChild(p);
@@ -345,6 +349,8 @@
 
 	src.onAdd = function (map) {
 		var div = L.DomUtil.create('div', 'leaflet-control-attribution');
+		L.DomEvent.disableClickPropagation(div);
+		L.DomEvent.disableScrollPropagation(div);
 		var p = document.createElement('p');
 		p.appendChild(cellSearch);
 		div.appendChild(p);
@@ -359,7 +365,11 @@
 	var coord = L.control({ position: 'bottomleft' });
 	var coordDiv = L.DomUtil.create('div', 'leaflet-control-attribution');
 	coordDiv.innerHTML = "<p>&nbsp;</p>";
-	coord.onAdd = function (map) { return coordDiv; };
+	coord.onAdd = function (map) {
+		L.DomEvent.disableClickPropagation(coordDiv);
+		L.DomEvent.disableScrollPropagation(coordDiv);
+		return coordDiv;
+	};
 	coord.addTo(map);
 
 	map.on('mousemove', function (e) {
