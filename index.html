@@ -237,6 +237,61 @@
 
 	var bboxes = {};
 
+	function box_contains_point(box, point) {
+		var x0 = Math.min(box.p0.x, box.p1.x);
+		var x1 = Math.max(box.p0.x, box.p1.x);
+		var y0 = Math.min(box.p0.y, box.p1.y);
+		var y1 = Math.max(box.p0.y, box.p1.y);
+		return (point.x >= x0 && point.x <= x1 && point.y >= y0 && point.y <= y1);
+	}
+
+	function segment_near_point(line, point, maxDist) {
+		// maxDist * 2 == line width
+		var p0 = { x: Math.min(line.p0.x, line.p1.x) - maxDist, y: Math.min(line.p0.y, line.p1.y) - maxDist };
+		var p1 = { x: Math.max(line.p0.x, line.p1.x) + maxDist, y: Math.max(line.p0.y, line.p1.y) + maxDist };
+		var box = { p0: p0, p1: p1 };
+		if (!box_contains_point(box, point))
+			return false;
+		var dist = Math.abs((line.p1.x - line.p0.x) * (line.p0.y - point.y) - (line.p0.x - point.x) * (line.p1.y - line.p0.y)) /
+			Math.sqrt(Math.pow(line.p1.x - line.p0.x, 2) + Math.pow(line.p1.y - line.p0.y, 2));
+		return dist <= maxDist;
+	}
+
+	var debugQTree = params.get("debug_qtree") != null;
+
+	function collide_qtree(ts, p) {
+		var ret = [];
+		if (!ts)
+			return ret;
+		for (var t of ts) {
+			if (!box_contains_point({ p0: { x: t.p[0], y: t.p[1] }, p1: { x: t.p[2], y: t.p[3] } }, p))
+				continue;
+			if (debugQTree)
+				L.rectangle([[t.p[0], t.p[1]], [t.p[2], t.p[3]]], { color: 'red' }).addTo(map);
+			ret = ret.concat(collide_qtree(t.d, p));
+			for (var c of t.c ? t.c : []) {
+				c = cells_cn[c];
+				if (box_contains_point({ p0: { x: c.l[0], y: c.l[1] }, p1: { x: c.l[2], y: c.l[3] } }, p))
+					ret.push({ t: "c", i: c });
+			}
+			next_wire: for (var w of t.w ? t.w : []) {
+				w = wires_cn[w];
+				for (var l of w.l) {
+					var width = 0.079;
+					for (var i = 1; i < l.length / 2; i++) {
+						var line = { p0: { x: l[(i - 1) * 2], y: l[(i - 1) * 2 + 1] },
+						             p1: { x: l[i * 2], y: l[i * 2 + 1] } };
+						if (segment_near_point(line, p, width / 2)) {
+							ret.push({ t: "w", i: w });
+							continue next_wire;
+						}
+					}
+				}
+			}
+		}
+		return ret;
+	}
+
 	function find_grp(n, t = "") {
 		if (n.trim().substring(0, 2).trim() == "c:") {
 			if (t != "w" && cells_cn[n.trim().substring(2).trim()])
@@ -245,6 +300,17 @@
 		if (n.trim().substring(0, 2).trim() == "w:") {
 			if (t != "c" && wires_cn[n.trim().substring(2).trim()])
 				return [{ t: "w", i: wires_cn[n.trim().substring(2).trim()] }];
+		}
+		if (n.trim().substring(0, 2).trim() == "p:") {
+			var p = n.trim().substring(2).split(",");
+			if (p.length == 2) {
+				p = { x: p[0].trim(), y: p[1].trim() };
+				var collisions = collide_qtree([qtree], p);
+				if (debugQTree)
+					for (var x of collisions)
+						console.log("Collision on " + x.t + ": " + x.i.h);
+				return collisions;
+			}
 		}
 		bbox = bboxes[n.trim()];
 		if (bbox)
@@ -289,7 +355,7 @@
 		return box;
 	}
 
-	function open_popup(o) {
+	function open_popup(o, multiResultNote = false) {
 		var t;
 		if (o.t == "c")
 			t = "Cell";
@@ -298,6 +364,8 @@
 		else
 			return;
 		var content = `<p>${t}: <b>${o.i.h}</b></p><p><a href="${netlistUrl}#${o.i.a}">Go to netlist</a></p>`;
+		if (multiResultNote)
+			content += "<p>Note: Multiple results. Press ENTER to cycle through them.</p>";
 		searchGeometry[0].bindPopup(content, { autoPan: false, keepInView: false }).openPopup();
 	}
 
@@ -315,6 +383,7 @@
 				searchGeometry[1].removeFrom(miniMap._miniMap);
 			}
 			searchGeometry = null;
+			var pan = !window.event.ctrlKey;
 			var res = find_grp(this.value);
 			if (res.length >= 1) {
 				var i = 0;
@@ -327,19 +396,22 @@
 					searchGeometry = [pl, L.polyline(pl.getLatLngs(), { color: 'cyan' })];
 					searchGeometry[0].addTo(map);
 					searchGeometry[1].addTo(miniMap._miniMap);
-					open_popup(res[i]);
-					map.fitBounds(pl.getBounds());
+					open_popup(res[i], res.length > 1);
+					if (pan)
+						map.fitBounds(pl.getBounds());
 				} else {
 					if (res[i].t == "c") {
 						searchGeometry = [cell_box(res[i].i), cell_box(res[i].i)];
 						searchGeometry[0].addTo(map);
 						searchGeometry[1].addTo(miniMap._miniMap);
-						open_popup(res[i]);
-					var p = res[i].i.l;
-					if (p.length == 4)
-						map.fitBounds([[p[0], p[1]], [p[2], p[3]]]);
-					else
-						map.setView(p, 7);
+						open_popup(res[i], res.length > 1);
+					}
+					if (pan) {
+						var p = res[i].i.l;
+						if (p.length == 4)
+							map.fitBounds([[p[0], p[1]], [p[2], p[3]]]);
+						else
+							map.setView(p, 7);
 					}
 				}
 			}
@@ -422,6 +494,8 @@
 	var view = params.get("view");
 	if (view) {
 		var p = view.split(",");
+		if (view.trim().substring(0, 2) == "p:")
+			p = [view];
 		var z = 6;
 		if (p.length == 1) {
 			var res = find_grp(p[0]);
@@ -430,6 +504,7 @@
 					searchGeometry[0].removeFrom(map);
 					searchGeometry[1].removeFrom(miniMap._miniMap);
 				}
+				searchGeometry = null;
 				if (res[0].t == "w") {
 					p = [];
 					var pl = wire_polyline(res[0].i);
@@ -459,6 +534,19 @@
 		}
 		if (p.length == 2)
 			map.setView(p, z);
+	}
+
+	if (!paramDraw) {
+		map.on('click', function (e) {
+			cellSearch.value = `p:${e.latlng.lat.toFixed(2)},${e.latlng.lng.toFixed(2)}`;
+			cellSearch.onkeydown({ key: 'Enter' });
+			cellSearch.focus();
+		});
+
+		map.on('dblclick moveend', function (e) {
+			cellSearch.setSelectionRange(0, cellSearch.value.length);
+			cellSearch.focus();
+		});
 	}
 
 	document.getElementById('map').style.cursor = 'crosshair'
