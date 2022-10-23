@@ -385,7 +385,7 @@
 				searchGeometry[1].removeFrom(miniMap._miniMap);
 			}
 			searchGeometry = null;
-			var pan = window.event.ctrlKey;
+			var pan = L.Browser.mobile || window.event.ctrlKey;
 			var res = find_grp(this.value);
 			if (res.length >= 1) {
 				var i = 0;
@@ -429,9 +429,11 @@
 		p.innerHTML = "Search for cells or wires:<br>";
 		p.appendChild(cellSearch);
 		div.appendChild(p);
-		var p = document.createElement('p');
-		p.innerHTML = "Hold down CTRL key while pressing ENTER to zoom in on found object.";
-		div.appendChild(p);
+		if (!L.Browser.mobile) {
+			var p = document.createElement('p');
+			p.innerHTML = "Hold down CTRL key while pressing ENTER to zoom in on found object.";
+			div.appendChild(p);
+		}
 		var p = document.createElement('p');
 		p.innerHTML = "<a href=\"https://github.com/msinger/dmg_cpu_b_map/\">Source code on GitHub</a>";
 		div.appendChild(p);
@@ -506,6 +508,7 @@
 		if (p.length == 1) {
 			var res = find_grp(p[0]);
 			if (res.length >= 1) {
+				cellSearch.value = p[0];
 				if (searchGeometry) {
 					searchGeometry[0].removeFrom(map);
 					searchGeometry[1].removeFrom(miniMap._miniMap);
@@ -546,16 +549,25 @@
 		map.on('click', function (e) {
 			cellSearch.value = `p:${e.latlng.lat.toFixed(2)},${e.latlng.lng.toFixed(2)}`;
 			cellSearch.onkeydown({ key: 'Enter' });
-			cellSearch.focus();
+			if (!L.Browser.mobile)
+				cellSearch.focus();
 		});
 
-		map.on('dblclick moveend', function (e) {
-			cellSearch.setSelectionRange(0, cellSearch.value.length);
-			cellSearch.focus();
-		});
+		if (!L.Browser.mobile) {
+			map.on('dblclick moveend load', function (e) {
+				cellSearch.setSelectionRange(0, cellSearch.value.length);
+				cellSearch.focus();
+			});
+
+			window.onload = function (e) {
+				cellSearch.setSelectionRange(0, cellSearch.value.length);
+				cellSearch.focus();
+			};
+		}
 	}
 
 	document.getElementById('map').style.cursor = 'crosshair'
+
 
 </script>
 </body>
