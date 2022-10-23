@@ -368,7 +368,7 @@
 			return;
 		var content = `<h1>${t} - <b>${o.i.h}</b></h1><p><a href="${netlistUrl}#${o.i.a}">Go to netlist</a></p>`;
 		if (multiResultNote)
-			content += "<p><hr><b>Multiple results:</b><br>Press ENTER to cycle through them.</p>";
+			content += "<p><hr><b>Multiple results:</b><br>Press <a onclick=\"next_result(); return false;\" href=\"\">ENTER</a> to cycle through them.</p>";
 		searchGeometry[0].bindPopup(content, { autoPan: false, keepInView: false }).openPopup();
 	}
 
@@ -546,12 +546,16 @@
 			map.setView(p, z);
 	}
 
+	function next_result() {
+		cellSearch.onkeydown({ key: 'Enter' });
+		if (!L.Browser.mobile)
+			cellSearch.focus();
+	}
+
 	if (!paramDraw) {
 		map.on('click', function (e) {
 			cellSearch.value = `p:${e.latlng.lat.toFixed(2)},${e.latlng.lng.toFixed(2)}`;
-			cellSearch.onkeydown({ key: 'Enter' });
-			if (!L.Browser.mobile)
-				cellSearch.focus();
+			next_result();
 		});
 
 		if (!L.Browser.mobile) {
