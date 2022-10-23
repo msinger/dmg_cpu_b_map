@@ -289,6 +289,8 @@
 				}
 			}
 		}
+		// TODO: When clicking exactly at the border between quad tree boxes, it can happen that the same object
+		//       is added to ret[] multiple times if it is part of multiple boxes. -> Remove duplicates.
 		return ret;
 	}
 
@@ -363,9 +365,9 @@
 			t = "Wire";
 		else
 			return;
-		var content = `<p>${t}: <b>${o.i.h}</b></p><p><a href="${netlistUrl}#${o.i.a}">Go to netlist</a></p>`;
+		var content = `<h1>${t} - <b>${o.i.h}</b></h1><p><a href="${netlistUrl}#${o.i.a}">Go to netlist</a></p>`;
 		if (multiResultNote)
-			content += "<p>Note: Multiple results. Press ENTER to cycle through them.</p>";
+			content += "<p><hr><b>Multiple results:</b><br>Press ENTER to cycle through them.</p>";
 		searchGeometry[0].bindPopup(content, { autoPan: false, keepInView: false }).openPopup();
 	}
 
