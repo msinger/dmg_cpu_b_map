@@ -122,15 +122,22 @@
 		"Labels [new-testing]": tl_labels_new
 	};
 
+	var testingp = params.get("testing") != null;
 	var shotp   = params.get("shot");
 	var cellsp  = params.get("cells");
 	var wiresp  = params.get("wires");
 	var labelsp = params.get("labels");
 	var def_layers = [tl_die_mz_20x];
 	if (shotp   == "1") def_layers = [tl_die_s1_1_20x];
-	if (cellsp  != "0") def_layers.push(tl_cells);
-	if (wiresp  != "0") def_layers.push(tl_wires);
-	if (labelsp != "0") def_layers.push(tl_labels);
+	if (testingp) {
+		if (cellsp  != "0") def_layers.push(tl_cells_new);
+		if (wiresp  != "0") def_layers.push(tl_wires_new);
+		if (labelsp != "0") def_layers.push(tl_labels_new);
+	} else {
+		if (cellsp  != "0") def_layers.push(tl_cells);
+		if (wiresp  != "0") def_layers.push(tl_wires);
+		if (labelsp != "0") def_layers.push(tl_labels);
+	}
 
 	var map = L.map('map', {
 		crs: L.CRS.Simple,
