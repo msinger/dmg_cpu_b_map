@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="Control.MiniMap.css">
 <script src="leaflet.js"></script>
 <script src="Control.MiniMap.js"></script>
+<script src="Control.Nanoscale.js"></script>
 <script src="coords.js"></script>
 </head>
 <body style="width: 100%; height: 100%; margin: 0px;">
@@ -578,8 +579,10 @@
 		}
 	}
 
-	document.getElementById('map').style.cursor = 'crosshair'
+	var scale = L.control.nanoscale({ position: "bottomleft", nanometersPerPixel: 6800000 / 256, ratioAtZoom: 0 });
+	scale.addTo(map);
 
+	document.getElementById('map').style.cursor = 'crosshair'
 
 </script>
 </body>

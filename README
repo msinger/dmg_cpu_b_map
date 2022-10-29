@@ -6,6 +6,9 @@ https://leafletjs.com/
 And Leaflet-Minimap:
 https://github.com/Norkart/Leaflet-MiniMap/
 
+And Leaflet-Nanoscale:
+https://github.com/whitequark/Leaflet.Nanoscale/
+
 The actual images are not included in this repository. They must be manually exported from Inkscape
 and then processed by ./scripts/gen_tiles.sh
 
