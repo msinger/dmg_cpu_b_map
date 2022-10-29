@@ -242,6 +242,8 @@
 			if (dline.length > 1)
 				dlinePoly = L.polyline(dline, { color: 'green' }).addTo(map);
 		});
+
+		map.doubleClickZoom.disable();
 	}
 
 	var bboxes = {};
