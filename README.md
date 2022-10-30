@@ -3,8 +3,9 @@ Game Boy DMG CPU B Leaflet Map
 
 Web-based map of the Gameboy DMG-CPU B with overlays.
 
-Made with [Leaflet](https://leafletjs.com/), [Leaflet-Minimap](https://github.com/Norkart/Leaflet-MiniMap/)
-and [Leaflet-Nanoscale](https://github.com/whitequark/Leaflet.Nanoscale/).
+Made with [Leaflet](https://leafletjs.com/), [Leaflet-Minimap](https://github.com/Norkart/Leaflet-MiniMap/),
+[Leaflet-Nanoscale](https://github.com/whitequark/Leaflet.Nanoscale/) and
+[Leaflet-PolylineMeasure](https://github.com/ppete2/Leaflet.PolylineMeasure).
 
 
 Live version of the map
