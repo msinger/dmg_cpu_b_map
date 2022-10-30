@@ -6,6 +6,13 @@
 **                                                      **
 *********************************************************/
 
+/* NOTE: This is not the original version. It was modified to be used on microchips instead of
+ * planet Earth itself:
+ *
+ *  -> Makes straight lines instead of arcs.
+ *  -> Distances are calculated in milli-, micro- and nanometers.
+ */
+
 
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
@@ -42,17 +49,17 @@
              */
             position: 'topleft',
             /**
-             * Default unit the distances are displayed in. Possible values are: 'kilometres', 'landmiles', 'nauticalmiles'
+             * Default unit the distances are displayed in. Possible values are: 'millimeters'
              * @type {String}
              * @default
              */
-            unit: 'kilometres',
+            unit: 'millimeters',
             /**
-             * Use subunits (metres/feet) in tooltips in case of distances less then 1 kilometre/landmile
+             * Use subunits (micrometers, nanometers) in tooltips in case of distances less then 1 millimeter
              * @type {Boolean}
              * @default
              */
-            useSubunits: true,            
+            useSubunits: true,
             /**
              * Clear all measurements when Measure Control is switched off
              * @type {Boolean}
@@ -147,7 +154,7 @@
              * @type {Array}
              * @default
              */
-            unitControlUnits: ["kilometres" , "landmiles", "nauticalmiles"],
+            unitControlUnits: ["millimeters"],
             /**
              * Title texts to show on the Unit Control button
              * @type {Object}
@@ -155,9 +162,7 @@
              */
             unitControlTitle: {
                text: 'Change Units',
-               kilometres: 'kilometres',
-               landmiles: 'land miles',
-               nauticalmiles: 'nautical miles'
+               nanometers: 'millimeters',
             },
             /**
              * Unit symbols to show in the Unit Control button and measurement labels
@@ -165,11 +170,9 @@
              * @default
              */
             unitControlLabel: {
-               metres: 'm',
-               kilometres: 'km',
-               feet: 'ft',
-               landmiles: 'mi',
-               nauticalmiles: 'nm'
+               millimeters: 'mm',
+               micrometers: 'µm',
+               nanometers:  'nm',
             },
             /**
              * Classes to apply to the Unit control
@@ -225,7 +228,7 @@
                  * @default
                  */
                 color: '#000'
-            },            
+            },
             /**
              * Style settings for circle marker indicating the starting point of the polyline
              * @type {Object}
@@ -372,7 +375,7 @@
             }
         },
 
-        _arcpoints: 100,  // 100 points = 99 line segments. lower value to make arc less accurate or increase value to make it more accurate.
+        _arcpoints: 2,  // 2 points = 1 line segment. lower value to make arc less accurate or increase value to make it more accurate.
         _circleNr: -1,
         _lineNr: -1,
 
@@ -620,49 +623,19 @@
          */
         _getDistance: function (distance) {
             var dist = distance;
-            var unit;
-            if (this.options.unit === 'nauticalmiles') {
-                unit = this.options.unitControlLabel.nauticalmiles;
-                if (dist >= 185200) {
-                    dist = (dist/1852).toFixed(0);
-                } else if (dist >= 18520) {
-                    dist = (dist/1852).toFixed(1);
-                } else if (dist >= 1852) {
-                    dist = (dist/1852).toFixed(2);
-                } else  {
-                    dist = (dist/1852).toFixed(3);   // there's no subunit of Nautical Miles for horizontal length measurements. "Cable length" (1/10th of 1 nm) is rarely used
-                }
-            } else if (this.options.unit === 'landmiles') {
-                unit = this.options.unitControlLabel.landmiles;
-                if (dist >= 160934.4) {
-                    dist = (dist/1609.344).toFixed(0);
-                } else if (dist >= 16093.44) {
-                    dist = (dist/1609.344).toFixed(1);
-                } else if (dist >= 1609.344) {
-                    dist = (dist/1609.344).toFixed(2);
+            var unit = this.options.unitControlLabel.millimeters;
+            if (dist >= 1000000) {
+                dist = (dist/1000000).toFixed(6);
+            } else {
+                if (!this.options.useSubunits) {
+                    dist = (dist/1000000).toFixed(6);
                 } else {
-                    if (!this.options.useSubunits) {
-                        dist = (dist/1609.344).toFixed(3);
-                    } else {
-                        dist = (dist/0.3048).toFixed(0);
-                        unit = this.options.unitControlLabel.feet;
-                    }
-                }
-            }
-            else {
-                unit = this.options.unitControlLabel.kilometres;
-                if (dist >= 100000) {
-                    dist = (dist/1000).toFixed(0);
-                } else if (dist >= 10000) {
-                    dist = (dist/1000).toFixed(1);
-                } else if (dist >= 1000) {
-                    dist = (dist/1000).toFixed(2);
-                } else {
-                    if (!this.options.useSubunits) {
+                    if (dist >= 1000) {
                         dist = (dist/1000).toFixed(3);
+                        unit = this.options.unitControlLabel.micrometers;
                     } else {
                         dist = (dist).toFixed(0);
-                        unit = this.options.unitControlLabel.metres;
+                        unit = this.options.unitControlLabel.nanometers;
                     }
                 }
             }
@@ -727,6 +700,10 @@
             return arrLatLngs;
         },
 
+        _polyline: function (_from, _to) {
+            return [[_from.lat, _from.lng], [_to.lat, _to.lng]];
+        },
+
         /**
          * Update the tooltip distance
          * @param {Number} total        Total distance
@@ -775,6 +752,10 @@
             var midpoint = Math.round(arcLine.length/2);
             var P1 = arcLine[midpoint-1];
             var P2 = arcLine[midpoint];
+            if (arcLine.length == 2) {
+                P1 = arcLine[0];
+                P2 = arcLine[1];
+            }
             var diffLng12 = P2[1] - P1[1];
             var diffLat12 = P2[0] - P1[0];
             var center = [P1[0] + diffLat12/2, P1[1] + diffLng12/2];  // center of Great-circle distance, NOT of the arc on a Mercator map! reason: a) to complicated b) map not always Mercator c) good optical feature to see where real center of distance is not the "virtual" warped arc center due to Mercator projection
@@ -807,7 +788,7 @@
                 return;
             }
             var lastCircleCoords = this._currentLine.circleCoords.last();
-            this._rubberlinePath.setLatLngs (this._polylineArc (lastCircleCoords, mouseCoords));
+            this._rubberlinePath.setLatLngs (this._polyline (lastCircleCoords, mouseCoords));
             var currentTooltip = this._currentLine.tooltips.last();
             var prevTooltip = this._currentLine.tooltips.slice(-2,-1)[0];
             currentTooltip.setLatLng (mouseCoords);
@@ -885,13 +866,13 @@
                     this.circleCoords.push (mouseCoords);
                     // update polyline
                     if (this.circleCoords.length > 1) {
-                        var arc = polylineState._polylineArc (lastCircleCoords, mouseCoords);
+                        var arc = polylineState._polyline (lastCircleCoords, mouseCoords);
+                        var arrowMarker = polylineState._drawArrow (arc);
                         if (this.circleCoords.length > 2) {
                             arc.shift();  // remove first coordinate of the arc, cause it is identical with last coordinate of previous arc
                         }
                         this.polylinePath.setLatLngs (this.polylinePath.getLatLngs().concat(arc));
                         // following lines needed especially for Mobile Browsers where we just use mouseclicks. No mousemoves, no tempLine.
-                        var arrowMarker = polylineState._drawArrow (arc);
                         arrowMarker.cntLine = polylineState._currentLine.id;
                         arrowMarker.cntArrow = polylineState._cntCircle - 1;
                         polylineState._currentLine.arrowMarkers.push (arrowMarker);
@@ -1046,9 +1027,9 @@
                 });
                 this._arrPolylines[lineNr].circleCoords.splice (arrowNr+1, 0, e.latlng);
                 lineCoords = this._arrPolylines[lineNr].polylinePath.getLatLngs(); // get Coords of each Point of the current Polyline
-                var arc1 = this._polylineArc (this._arrPolylines[lineNr].circleCoords[arrowNr], e.latlng);
+                var arc1 = this._polyline (this._arrPolylines[lineNr].circleCoords[arrowNr], e.latlng);
                 arc1.pop();
-                var arc2 = this._polylineArc (e.latlng, this._arrPolylines[lineNr].circleCoords[arrowNr+2]);
+                var arc2 = this._polyline (e.latlng, this._arrPolylines[lineNr].circleCoords[arrowNr+2]);
                 Array.prototype.splice.apply (lineCoords, [(arrowNr)*(this._arcpoints-1), this._arcpoints].concat (arc1, arc2));
                 this._arrPolylines[lineNr].polylinePath.setLatLngs (lineCoords);
                 var arrowMarker = this._drawArrow (arc1);
@@ -1116,7 +1097,7 @@
             this._arrPolylines[lineNr].circleCoords[circleNr] = currentCircleCoords;
             var lineCoords = this._arrPolylines[lineNr].polylinePath.getLatLngs(); // get Coords of each Point of the current Polyline
             if (circleNr >= 1) {   // redraw previous arc just if circle is not starting circle of polyline
-                var newLineSegment1 = this._polylineArc(this._arrPolylines[lineNr].circleCoords[circleNr-1], currentCircleCoords);
+                var newLineSegment1 = this._polyline(this._arrPolylines[lineNr].circleCoords[circleNr-1], currentCircleCoords);
                 // the next line's syntax has to be used since Internet Explorer doesn't know new spread operator (...) for inserting the individual elements of an array as 3rd argument of the splice method; Otherwise we could write: lineCoords.splice (circleNr*(arcpoints-1), arcpoints, ...newLineSegment1);
                 Array.prototype.splice.apply (lineCoords, [(circleNr-1)*(arcpoints-1), arcpoints].concat (newLineSegment1));
                 var arrowMarker = this._drawArrow (newLineSegment1);
@@ -1126,7 +1107,7 @@
                 this._arrPolylines[lineNr].arrowMarkers [circleNr-1] = arrowMarker;
             }
             if (circleNr < this._arrPolylines[lineNr].circleCoords.length-1) {   // redraw following arc just if circle is not end circle of polyline
-                var newLineSegment2 = this._polylineArc (currentCircleCoords, this._arrPolylines[lineNr].circleCoords[circleNr+1]);
+                var newLineSegment2 = this._polyline (currentCircleCoords, this._arrPolylines[lineNr].circleCoords[circleNr+1]);
                 Array.prototype.splice.apply (lineCoords, [circleNr*(arcpoints-1), arcpoints].concat (newLineSegment2));
                 arrowMarker = this._drawArrow (newLineSegment2);
                 arrowMarker.cntLine = lineNr;
@@ -1158,7 +1139,7 @@
             var lineNr = this._lineNr;
             this._map.on ('click', this._resumeFirstpointClick, this);  // necassary for _dragCircle. If switched on already within _dragCircle an unwanted click is fired at the end of the drag.
             var mouseCoords = e.latlng;
-            this._rubberlinePath2.setLatLngs (this._polylineArc (mouseCoords, currentCircleCoords));
+            this._rubberlinePath2.setLatLngs (this._polyline (mouseCoords, currentCircleCoords));
             this._tooltipNew.setLatLng (mouseCoords);
             var totalDistance = 0;
             var distance = mouseCoords.distanceTo (this._arrPolylines[lineNr].circleCoords[0]);
@@ -1199,7 +1180,7 @@
                 item.cntCircle = index;
             });
             this._arrPolylines[lineNr].circleCoords.unshift(e.latlng);
-            var arc = this._polylineArc (e.latlng, currentCircleCoords);
+            var arc = this._polyline (e.latlng, currentCircleCoords);
             var arrowMarker = this._drawArrow (arc);
             this._arrPolylines[lineNr].arrowMarkers.unshift(arrowMarker);
             this._arrPolylines[lineNr].arrowMarkers.map (function (item, index) {
@@ -1325,7 +1306,7 @@
                         this._arrPolylines[lineNr].arrowMarkers.splice(-1,1);
                         // if intermediate Circle is being removed
                     } else {
-                        newLineSegment = this._polylineArc (this._arrPolylines[lineNr].circleCoords[circleNr-1], this._arrPolylines[lineNr].circleCoords[circleNr]);
+                        newLineSegment = this._polyline (this._arrPolylines[lineNr].circleCoords[circleNr-1], this._arrPolylines[lineNr].circleCoords[circleNr]);
                         Array.prototype.splice.apply (lineCoords, [(circleNr-1)*(arcpoints-1), (2*arcpoints-1)].concat (newLineSegment));
                         this._arrPolylines[lineNr].arrowMarkers [circleNr-1].removeFrom (this._layerPaint);
                         this._arrPolylines[lineNr].arrowMarkers [circleNr].removeFrom (this._layerPaint);
@@ -1398,7 +1379,7 @@
                         this._currentLine.arrowMarkers.splice(-1,1);
                         // if intermediate Circle is being removed
                     } else {
-                        newLineSegment = this._polylineArc (this._currentLine.circleCoords[circleNr-1], this._currentLine.circleCoords[circleNr]);
+                        newLineSegment = this._polyline (this._currentLine.circleCoords[circleNr-1], this._currentLine.circleCoords[circleNr]);
                         Array.prototype.splice.apply (lineCoords, [(circleNr-1)*(arcpoints-1), (2*arcpoints-1)].concat (newLineSegment));
                         this._currentLine.arrowMarkers [circleNr-1].removeFrom (this._layerPaint);
                         this._currentLine.arrowMarkers [circleNr].removeFrom (this._layerPaint);

@@ -583,8 +583,18 @@
 		}
 	}
 
-	var scale = L.control.nanoscale({ position: "bottomleft", nanometersPerPixel: 6800000 / 256, ratioAtZoom: 0 });
+	var nanometersPerUnit = 6800000 / 256;
+
+	var scale = L.control.nanoscale({ position: "bottomleft", nanometersPerPixel: nanometersPerUnit, ratioAtZoom: 0 });
 	scale.addTo(map);
+
+	L.LatLng.prototype.distanceTo = function (other) {
+		var dx = this.lat - other.lat;
+		var dy = this.lng - other.lng;
+		dx *= dx;
+		dy *= dy;
+		return Math.sqrt(dx + dy) * nanometersPerUnit;
+	}
 
 	if (!paramDraw) {
 		var measure = L.control.polylineMeasure();
