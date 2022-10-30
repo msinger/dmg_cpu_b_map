@@ -564,25 +564,6 @@
 			cellSearch.focus();
 	}
 
-	if (!paramDraw) {
-		map.on('click', function (e) {
-			cellSearch.value = `p:${e.latlng.lat.toFixed(2)},${e.latlng.lng.toFixed(2)}`;
-			next_result();
-		});
-
-		if (!L.Browser.mobile) {
-			map.on('dblclick moveend load', function (e) {
-				cellSearch.setSelectionRange(0, cellSearch.value.length);
-				cellSearch.focus();
-			});
-
-			window.onload = function (e) {
-				cellSearch.setSelectionRange(0, cellSearch.value.length);
-				cellSearch.focus();
-			};
-		}
-	}
-
 	var nanometersPerUnit = 6800000 / 256;
 
 	var scale = L.control.nanoscale({ position: "bottomleft", nanometersPerPixel: nanometersPerUnit, ratioAtZoom: 0 });
@@ -599,6 +580,25 @@
 	if (!paramDraw) {
 		var measure = L.control.polylineMeasure();
 		measure.addTo(map);
+
+		map.on('click', function (e) {
+			if (!measure._measuring) {
+				cellSearch.value = `p:${e.latlng.lat.toFixed(2)},${e.latlng.lng.toFixed(2)}`;
+				next_result();
+			}
+		});
+
+		if (!L.Browser.mobile) {
+			map.on('dblclick moveend load', function (e) {
+				cellSearch.setSelectionRange(0, cellSearch.value.length);
+				cellSearch.focus();
+			});
+
+			window.onload = function (e) {
+				cellSearch.setSelectionRange(0, cellSearch.value.length);
+				cellSearch.focus();
+			};
+		}
 	}
 
 	document.getElementById('map').style.cursor = 'crosshair'
