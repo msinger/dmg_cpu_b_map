@@ -324,6 +324,8 @@
 				if (debugQTree)
 					for (var x of collisions)
 						console.log("Collision on " + x.t + ": " + x.i.h);
+				for (var i = 0; i < collisions.length; i++)
+					collisions[i].click = p;
 				return collisions;
 			}
 		}
@@ -381,7 +383,11 @@
 		var content = `<h1>${t} - <b>${o.i.h}</b></h1><p><a href="${netlistUrl}#${o.i.a}">Go to netlist</a></p>`;
 		if (multiResultNote)
 			content += "<p><hr><b>Multiple results:</b><br>Press <a onclick=\"next_result(); return false;\" href=\"\">ENTER</a> to cycle through them.</p>";
-		searchGeometry[0].bindPopup(content, { autoPan: false, keepInView: false }).openPopup();
+		var popup = searchGeometry[0].bindPopup(content, { autoPan: false, keepInView: false });
+		if (o.click)
+			popup.openPopup([o.click.x, o.click.y]);
+		else
+			popup.openPopup();
 	}
 
 	var prevSearch = "";
