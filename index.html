@@ -6,9 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link rel="stylesheet" href="leaflet.css">
 <link rel="stylesheet" href="Control.MiniMap.css">
+<link rel="stylesheet" href="Leaflet.PolylineMeasure.css">
 <script src="leaflet.js"></script>
 <script src="Control.MiniMap.js"></script>
 <script src="Control.Nanoscale.js"></script>
+<script src="Leaflet.PolylineMeasure.js"></script>
 <script src="coords.js"></script>
 </head>
 <body style="width: 100%; height: 100%; margin: 0px;">
@@ -583,6 +585,11 @@
 
 	var scale = L.control.nanoscale({ position: "bottomleft", nanometersPerPixel: 6800000 / 256, ratioAtZoom: 0 });
 	scale.addTo(map);
+
+	if (!paramDraw) {
+		var measure = L.control.polylineMeasure();
+		measure.addTo(map);
+	}
 
 	document.getElementById('map').style.cursor = 'crosshair'
 
