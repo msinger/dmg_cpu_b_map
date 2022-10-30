@@ -383,7 +383,7 @@
 		var content = `<h1>${t} - <b>${o.i.h}</b></h1><p><a href="${netlistUrl}#${o.i.a}">Go to netlist</a></p>`;
 		if (multiResultNote)
 			content += "<p><hr><b>Multiple results:</b><br>Press <a onclick=\"next_result(); return false;\" href=\"\">ENTER</a> to cycle through them.</p>";
-		var popup = searchGeometry[0].bindPopup(content, { autoPan: false, keepInView: false });
+		var popup = searchGeometry[0].bindPopup(content, { autoPan: false, maxWidth: 500 });
 		if (o.click)
 			popup.openPopup([o.click.x, o.click.y]);
 		else
