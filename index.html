@@ -11,7 +11,7 @@
 <script src="Control.MiniMap.js"></script>
 <script src="Control.Nanoscale.js"></script>
 <script src="Leaflet.PolylineMeasure.js"></script>
-<script src="coords.js?v=4"></script>
+<script src="coords.js?v=5"></script>
 </head>
 <body style="width: 100%; height: 100%; margin: 0px;">
 <div id="map" style="width: 100%; height: 100%;"></div>
@@ -307,10 +307,16 @@
 		return ret;
 	}
 
+	function resolve_cell_ptr(c) {
+		if (c.p)
+			return resolve_cell_ptr(cells_cn[c.p]);
+		return c;
+	}
+
 	function find_grp(n, t = "") {
 		if (n.trim().substring(0, 2).trim() == "c:") {
 			if (t != "w" && cells_cn[n.trim().substring(2).trim()])
-				return [{ t: "c", i: cells_cn[n.trim().substring(2).trim()] }];
+				return [{ t: "c", i: resolve_cell_ptr(cells_cn[n.trim().substring(2).trim()]) }];
 		}
 		if (n.trim().substring(0, 2).trim() == "w:") {
 			if (t != "c" && wires_cn[n.trim().substring(2).trim()])
@@ -341,14 +347,14 @@
 		var ret = [];
 		if (cgrp)
 			for (var x of cgrp)
-				ret.push({ t: "c", i: cells_cn[x] });
+				ret.push({ t: "c", i: resolve_cell_ptr(cells_cn[x]) });
 		if (wgrp)
 			for (var x of wgrp)
 				ret.push({ t: "w", i: wires_cn[x] });
 		if (ret.length >= 1)
 			return ret;
 		if (t != "w" && cells_cn[n.trim()])
-			return [{ t: "c", i: cells_cn[n.trim()] }];
+			return [{ t: "c", i: resolve_cell_ptr(cells_cn[n.trim()]) }];
 		if (t != "c" && wires_cn[n.trim()])
 			return [{ t: "w", i: wires_cn[n.trim()] }];
 		return [];
