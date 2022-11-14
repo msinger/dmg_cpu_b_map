@@ -11,7 +11,7 @@
 <script src="Control.MiniMap.js"></script>
 <script src="Control.Nanoscale.js"></script>
 <script src="Leaflet.PolylineMeasure.js"></script>
-<script src="coords.js?v=5"></script>
+<script src="coords.js?v=9"></script>
 </head>
 <body style="width: 100%; height: 100%; margin: 0px;">
 <div id="map" style="width: 100%; height: 100%;"></div>
@@ -58,8 +58,16 @@
 		bounds: [[-256, 0], [0, 256]]
 	});
 
+	var tl_floor = L.tileLayer('map/floorplan/{z}/{y}/{x}.png', {
+		attribution: iceboyAtr,
+		maxNativeZoom: 6,
+		tileSize: 256,
+		noWrap: true,
+		bounds: [[-256, 0], [0, 256]]
+	});
+
 	var tl_cells = L.tileLayer('map/cells/{z}/{y}/{x}.png', {
-		attribution: furrtekAtr,
+		attribution: iceboyAtr,
 		maxNativeZoom: 6,
 		tileSize: 256,
 		noWrap: true,
@@ -75,14 +83,6 @@
 	});
 
 	var tl_labels = L.tileLayer('map/labels/{z}/{y}/{x}.png', {
-		attribution: furrtekAtr,
-		maxNativeZoom: 6,
-		tileSize: 256,
-		noWrap: true,
-		bounds: [[-256, 0], [0, 256]]
-	});
-
-	var tl_cells_new = L.tileLayer('map/cells_new/{z}/{y}/{x}.png', {
 		attribution: iceboyAtr,
 		maxNativeZoom: 6,
 		tileSize: 256,
@@ -91,14 +91,6 @@
 	});
 
 	var tl_wires_new = L.tileLayer('map/wires_new/{z}/{y}/{x}.png', {
-		attribution: iceboyAtr,
-		maxNativeZoom: 6,
-		tileSize: 256,
-		noWrap: true,
-		bounds: [[-256, 0], [0, 256]]
-	});
-
-	var tl_labels_new = L.tileLayer('map/labels_new/{z}/{y}/{x}.png', {
 		attribution: iceboyAtr,
 		maxNativeZoom: 6,
 		tileSize: 256,
@@ -117,26 +109,28 @@
 	};
 
 	var overlayMaps = {
+		"Floorplan": tl_floor,
 		"Cells": tl_cells,
 		"Wires": tl_wires,
 		"Labels": tl_labels,
-		"Cells [new-testing]": tl_cells_new,
 		"Wires [new-testing]": tl_wires_new,
-		"Labels [new-testing]": tl_labels_new
 	};
 
 	var testingp = params.get("testing") != null;
 	var shotp   = params.get("shot");
+	var floorp  = params.get("floorplan");
 	var cellsp  = params.get("cells");
 	var wiresp  = params.get("wires");
 	var labelsp = params.get("labels");
 	var def_layers = [tl_die_mz_20x];
 	if (shotp   == "1") def_layers = [tl_die_s1_1_20x];
 	if (testingp) {
-		if (cellsp  != "0") def_layers.push(tl_cells_new);
+		if (floorp  != "0") def_layers.push(tl_floor);
+		if (cellsp  != "0") def_layers.push(tl_cells);
 		if (wiresp  != "0") def_layers.push(tl_wires_new);
-		if (labelsp != "0") def_layers.push(tl_labels_new);
+		if (labelsp != "0") def_layers.push(tl_labels);
 	} else {
+		if (floorp  != "0") def_layers.push(tl_floor);
 		if (cellsp  != "0") def_layers.push(tl_cells);
 		if (wiresp  != "0") def_layers.push(tl_wires);
 		if (labelsp != "0") def_layers.push(tl_labels);
