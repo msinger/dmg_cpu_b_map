@@ -307,6 +307,12 @@
 		return c;
 	}
 
+	function resolve_wire_ptr(w) {
+		if (w.p)
+			return resolve_wire_ptr(wires_cn[w.p]);
+		return w;
+	}
+
 	function find_grp(n, t = "") {
 		if (n.trim().substring(0, 2).trim() == "c:") {
 			if (t != "w" && cells_cn[n.trim().substring(2).trim()])
@@ -314,7 +320,7 @@
 		}
 		if (n.trim().substring(0, 2).trim() == "w:") {
 			if (t != "c" && wires_cn[n.trim().substring(2).trim()])
-				return [{ t: "w", i: wires_cn[n.trim().substring(2).trim()] }];
+				return [{ t: "w", i: resolve_wire_ptr(wires_cn[n.trim().substring(2).trim()]) }];
 		}
 		if (n.trim().substring(0, 2).trim() == "p:") {
 			var p = n.trim().substring(2).split(",");
@@ -344,13 +350,13 @@
 				ret.push({ t: "c", i: resolve_cell_ptr(cells_cn[x]) });
 		if (wgrp)
 			for (var x of wgrp)
-				ret.push({ t: "w", i: wires_cn[x] });
+				ret.push({ t: "w", i: resolve_wire_ptr(wires_cn[x]) });
 		if (ret.length >= 1)
 			return ret;
 		if (t != "w" && cells_cn[n.trim()])
 			return [{ t: "c", i: resolve_cell_ptr(cells_cn[n.trim()]) }];
 		if (t != "c" && wires_cn[n.trim()])
-			return [{ t: "w", i: wires_cn[n.trim()] }];
+			return [{ t: "w", i: resolve_wire_ptr(wires_cn[n.trim()]) }];
 		return [];
 	}
 
