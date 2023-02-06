@@ -11,7 +11,7 @@
 <script src="Control.MiniMap.js"></script>
 <script src="Control.Nanoscale.js"></script>
 <script src="Leaflet.PolylineMeasure.js"></script>
-<script src="coords.js?v=12"></script>
+<script src="coords.js?v=13"></script>
 </head>
 <body style="width: 100%; height: 100%; margin: 0px;">
 <div id="map" style="width: 100%; height: 100%;"></div>
@@ -21,7 +21,7 @@
 
 	var digshadowAtr = "CC-BY-4.0 digshadow/<a href=\"https://siliconpr0n.org/map/nintendo/dmg-cpu-b/\">siliconpr0n.org</a>";
 	var siliconpr0nAtr = "CC-BY-4.0 <a href=\"https://siliconpr0n.org/map/nintendo/dmg-cpu-b/\">siliconpr0n.org</a>";
-	var furrtekAtr = "CC-BY-SA-4.0 <a href=\"https://github.com/furrtek/DMG-CPU-Inside\">Furrtek</a> &amp; <a href=\"https://github.com/msinger/dmg-schematics\">Règis Galland &amp; Michael Singer</a>";
+	var furrtekAtr = "CC-BY-SA-4.0 <a href=\"https://github.com/furrtek/DMG-CPU-Inside\">Furrtek</a>";
 	var iceboyAtr = "CC-BY-SA-4.0 <a href=\"https://github.com/msinger/dmg-schematics\">Règis Galland &amp; Michael Singer</a>";
 
 	var netlistUrl = "http://iceboy.a-singer.de/doc/dmg_cpu_b_netlist.html";
@@ -75,7 +75,7 @@
 	});
 
 	var tl_wires = L.tileLayer('map/wires/{z}/{y}/{x}.png', {
-		attribution: furrtekAtr,
+		attribution: iceboyAtr,
 		maxNativeZoom: 6,
 		tileSize: 256,
 		noWrap: true,
@@ -83,15 +83,7 @@
 	});
 
 	var tl_labels = L.tileLayer('map/labels/{z}/{y}/{x}.png', {
-		attribution: iceboyAtr,
-		maxNativeZoom: 6,
-		tileSize: 256,
-		noWrap: true,
-		bounds: [[-256, 0], [0, 256]]
-	});
-
-	var tl_wires_new = L.tileLayer('map/wires_new/{z}/{y}/{x}.png', {
-		attribution: iceboyAtr,
+		attribution: furrtekAtr,
 		maxNativeZoom: 6,
 		tileSize: 256,
 		noWrap: true,
@@ -113,10 +105,8 @@
 		"Cells": tl_cells,
 		"Wires": tl_wires,
 		"Labels": tl_labels,
-		"Wires [new-testing]": tl_wires_new,
 	};
 
-	var testingp = params.get("testing") != null;
 	var shotp   = params.get("shot");
 	var floorp  = params.get("floorplan");
 	var cellsp  = params.get("cells");
@@ -124,17 +114,10 @@
 	var labelsp = params.get("labels");
 	var def_layers = [tl_die_mz_20x];
 	if (shotp   == "1") def_layers = [tl_die_s1_1_20x];
-	if (testingp) {
-		if (floorp  != "0") def_layers.push(tl_floor);
-		if (cellsp  != "0") def_layers.push(tl_cells);
-		if (wiresp  != "0") def_layers.push(tl_wires_new);
-		if (labelsp != "0") def_layers.push(tl_labels);
-	} else {
-		if (floorp  != "0") def_layers.push(tl_floor);
-		if (cellsp  != "0") def_layers.push(tl_cells);
-		if (wiresp  != "0") def_layers.push(tl_wires);
-		if (labelsp != "0") def_layers.push(tl_labels);
-	}
+	if (floorp  != "0") def_layers.push(tl_floor);
+	if (cellsp  != "0") def_layers.push(tl_cells);
+	if (wiresp  != "0") def_layers.push(tl_wires);
+	if (labelsp != "0") def_layers.push(tl_labels);
 
 	var map = L.map('map', {
 		crs: L.CRS.Simple,
