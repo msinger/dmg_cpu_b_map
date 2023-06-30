@@ -402,7 +402,26 @@
 			t = "Wire";
 		else
 			return;
-		var content = `<h1>${t} - <b>${o.i.h}</b></h1><p><a href="${netlistUrl}#${o.i.a}">Go to netlist</a></p>`;
+		var content = `<h1>${t} - <b>${o.i.h}</b></h1>`;
+		if (o.i.d)
+			content += `<p>${o.i.d}</p>`;
+		if (o.t == "c") {
+			var desc = "";
+			if (cell_types[o.i.t].d)
+				desc = `:<br>${cell_types[o.i.t].d}`;
+			content += `<p>Type <b>${cell_types[o.i.t].h}</b>${desc}</p>`;
+			if (o.i.f) {
+				desc = "";
+				if (cell_cats[o.i.f].d)
+					desc = `:<br>${cell_cats[o.i.f].d}`;
+				content += `<p>Subsystem <b>${cell_cats[o.i.f].h}</b>${desc}</p>`;
+			}
+		}
+		content += `<p><a href="${netlistUrl}#${o.i.a}">Go to netlist</a></p>`;
+		if (o.t == "c") {
+			if (cell_types[o.i.t].u)
+				content += `<p><a href="${cell_types[o.i.t].u}">Go to cell documentation</a></p>`;
+		}
 		if (multiResultNote)
 			content += "<p><hr><b>Multiple results:</b><br>Press <a onclick=\"next_result(); return false;\" href=\"\">ENTER</a> to cycle through them.</p>";
 		var popup = searchGeometry[0].bindPopup(content, { autoPan: false, maxWidth: 500 });
