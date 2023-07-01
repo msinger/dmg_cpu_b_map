@@ -6,6 +6,7 @@
 #  ../img_src/cells.png:        16384x16215 pixels
 #  ../img_src/wires.png:        16384x16215 pixels
 #  ../img_src/labels.png:       16384x16215 pixels
+#  ../img_src/floorplan.png:    16384x16215 pixels
 #
 # This should produce:
 #  die_mz_20x   with zoom level 0...6
@@ -13,6 +14,7 @@
 #  cells        with zoom level 0...6
 #  wires        with zoom level 0...6
 #  labels       with zoom level 0...6
+#  floorplan    with zoom level 0...6
 
 set -e
 TILE_SZ=256
@@ -21,3 +23,4 @@ TILE_SZ=256
 ./gen_tiles.sh ../img_src/cells.png ../map/cells $TILE_SZ
 ./gen_tiles.sh ../img_src/wires.png ../map/wires $TILE_SZ
 ./gen_tiles.sh ../img_src/labels.png ../map/labels $TILE_SZ
+./gen_tiles.sh ../img_src/floorplan.png ../map/floorplan $TILE_SZ
