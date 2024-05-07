@@ -1,3 +1,4 @@
+var wire_width=1;
 var cell_types={
 "aibuf":{h:"AIBUF",a:"t_aibuf",d:"Analog input buffer.",u:"/doc/dmg_cells.html#aibuf"},
 "and2":{h:"AND2",a:"t_and2",d:"AND gate with two inputs.",u:"/doc/dmg_cells.html#and2"},
