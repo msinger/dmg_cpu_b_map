@@ -26,78 +26,86 @@
 
 	var netlistUrl = "http://iceboy.a-singer.de/doc/dmg_cpu_b_netlist.html";
 
-	var tl_die_mz_20x = L.tileLayer('map/die_mz_20x/{z}/{y}/{x}.jpg', {
-		attribution: digshadowAtr,
-		maxNativeZoom: 6,
-		tileSize: 256,
-		noWrap: true,
-		bounds: [[-256, 0], [0, 256]]
-	});
+	function gen_tile_layer(name) {
+		switch (name) {
+			case "die_mz_20x":
+				return L.tileLayer('map/die_mz_20x/{z}/{y}/{x}.jpg', {
+					attribution: digshadowAtr,
+					maxNativeZoom: 6,
+					tileSize: 256,
+					noWrap: true,
+					bounds: [[-256, 0], [0, 256]]
+				});
+			case "die_s1_1_20x":
+				return L.tileLayer('map/die_s1_1_20x/{z}/{y}/{x}.jpg', {
+					attribution: siliconpr0nAtr,
+					maxNativeZoom: 6,
+					tileSize: 256,
+					noWrap: true,
+					bounds: [[-256, 0], [0, 256]]
+				});
+			case "floorplan":
+				return L.tileLayer('map/floorplan/{z}/{y}/{x}.png', {
+					attribution: iceboyAtr,
+					maxNativeZoom: 6,
+					tileSize: 256,
+					noWrap: true,
+					bounds: [[-256, 0], [0, 256]]
+				});
+			case "cells":
+				return L.tileLayer('map/cells/{z}/{y}/{x}.png', {
+					attribution: iceboyAtr,
+					maxNativeZoom: 6,
+					tileSize: 256,
+					noWrap: true,
+					bounds: [[-256, 0], [0, 256]]
+				});
+			case "wires":
+				return L.tileLayer('map/wires/{z}/{y}/{x}.png', {
+					attribution: iceboyAtr,
+					maxNativeZoom: 6,
+					tileSize: 256,
+					noWrap: true,
+					bounds: [[-256, 0], [0, 256]]
+				});
+			case "labels":
+				return L.tileLayer('map/labels/{z}/{y}/{x}.png', {
+					attribution: furrtekAtr,
+					maxNativeZoom: 6,
+					tileSize: 256,
+					noWrap: true,
+					bounds: [[-256, 0], [0, 256]]
+				});
+		}
+	}
 
-	var tl_die_s1_1_20x = L.tileLayer('map/die_s1_1_20x/{z}/{y}/{x}.jpg', {
-		attribution: siliconpr0nAtr,
-		maxNativeZoom: 6,
-		tileSize: 256,
-		noWrap: true,
-		bounds: [[-256, 0], [0, 256]]
-	});
+	var tl_die_mz_20x           = gen_tile_layer("die_mz_20x");
+	var tl_die_mz_20x_minimap   = gen_tile_layer("die_mz_20x");
+	var tl_die_s1_1_20x         = gen_tile_layer("die_s1_1_20x")
+	var tl_die_s1_1_20x_minimap = gen_tile_layer("die_s1_1_20x")
+	var empty_layer_group       = L.layerGroup();
 
-	var tl_die_mz_20x_minimap = L.tileLayer('map/die_mz_20x/{z}/{y}/{x}.jpg', {
-		attribution: digshadowAtr,
-		maxNativeZoom: 6,
-		tileSize: 256,
-		noWrap: true,
-		bounds: [[-256, 0], [0, 256]]
-	});
+	var tl_floor  = gen_tile_layer("floorplan");
+	var tl_cells  = gen_tile_layer("cells");
+	var tl_wires  = gen_tile_layer("wires");
+	var tl_labels = gen_tile_layer("labels");
 
-	var tl_die_s1_1_20x_minimap = L.tileLayer('map/die_s1_1_20x/{z}/{y}/{x}.jpg', {
-		attribution: siliconpr0nAtr,
-		maxNativeZoom: 6,
-		tileSize: 256,
-		noWrap: true,
-		bounds: [[-256, 0], [0, 256]]
-	});
-
-	var tl_floor = L.tileLayer('map/floorplan/{z}/{y}/{x}.png', {
-		attribution: iceboyAtr,
-		maxNativeZoom: 6,
-		tileSize: 256,
-		noWrap: true,
-		bounds: [[-256, 0], [0, 256]]
-	});
-
-	var tl_cells = L.tileLayer('map/cells/{z}/{y}/{x}.png', {
-		attribution: iceboyAtr,
-		maxNativeZoom: 6,
-		tileSize: 256,
-		noWrap: true,
-		bounds: [[-256, 0], [0, 256]]
-	});
-
-	var tl_wires = L.tileLayer('map/wires/{z}/{y}/{x}.png', {
-		attribution: iceboyAtr,
-		maxNativeZoom: 6,
-		tileSize: 256,
-		noWrap: true,
-		bounds: [[-256, 0], [0, 256]]
-	});
-
-	var tl_labels = L.tileLayer('map/labels/{z}/{y}/{x}.png', {
-		attribution: furrtekAtr,
-		maxNativeZoom: 6,
-		tileSize: 256,
-		noWrap: true,
-		bounds: [[-256, 0], [0, 256]]
-	});
+	var tl_all_overlays_minimap = L.layerGroup();
+	tl_all_overlays_minimap.addLayer(gen_tile_layer("floorplan"));
+	tl_all_overlays_minimap.addLayer(gen_tile_layer("cells"));
+	tl_all_overlays_minimap.addLayer(gen_tile_layer("wires"));
+	tl_all_overlays_minimap.addLayer(gen_tile_layer("labels"));
 
 	var baseMaps = {
 		"DMG-CPU B: MZ 20x": tl_die_mz_20x,
-		"DMG-CPU B: S1-1 20x": tl_die_s1_1_20x
+		"DMG-CPU B: S1-1 20x": tl_die_s1_1_20x,
+		"- none -": empty_layer_group
 	};
 
 	var baseMapsMini = {
 		"DMG-CPU B: MZ 20x": tl_die_mz_20x_minimap,
-		"DMG-CPU B: S1-1 20x": tl_die_s1_1_20x_minimap
+		"DMG-CPU B: S1-1 20x": tl_die_s1_1_20x_minimap,
+		"- none -": tl_all_overlays_minimap
 	};
 
 	var overlayMaps = {
@@ -112,8 +120,12 @@
 	var cellsp  = params.get("cells");
 	var wiresp  = params.get("wires");
 	var labelsp = params.get("labels");
-	var def_layers = [tl_die_mz_20x];
-	if (shotp   == "1") def_layers = [tl_die_s1_1_20x];
+	var def_layers        = [tl_die_mz_20x];
+	var def_layer_minimap = tl_die_mz_20x_minimap;
+	if (shotp   == "1")  def_layers        = [tl_die_s1_1_20x];
+	if (shotp   == "1")  def_layer_minimap = tl_die_s1_1_20x_minimap;
+	if (shotp   == "-1") def_layers        = [empty_layer_group];
+	if (shotp   == "-1") def_layer_minimap = tl_all_overlays_minimap;
 	if (floorp  != "0") def_layers.push(tl_floor);
 	if (cellsp  != "0") def_layers.push(tl_cells);
 	if (wiresp  != "0") def_layers.push(tl_wires);
@@ -135,7 +147,7 @@
 
 	var topWhiteRows = 22;
 
-	var miniMap = new L.Control.MiniMap(tl_die_mz_20x_minimap, {
+	var miniMap = new L.Control.MiniMap(def_layer_minimap, {
 		zoomLevelFixed: 0,
 		toggleDisplay: true,
 		centerFixed: [-128 - topWhiteRows / 2, 128],
