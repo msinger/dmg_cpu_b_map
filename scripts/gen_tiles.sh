@@ -55,14 +55,14 @@ for (( i = 0; i <= MAX_ZOOM; i++ )); do
 		mkdir -p "$i/$j"
 	done
 
-	convert "$SRC_IMG" -filter     triangle \
-	                   -resize     ${LVL_SZ[i]}x${LVL_SZ[i]} \
-	                   -gravity    center \
-	                   -background "rgba(255, 255, 255, 0)" \
-	                   -extent     ${LVL_SZ[i]}x${LVL_SZ[i]} \
-	                   +gravity \
-	                   -crop       ${TILE_SZ}x${TILE_SZ} \
-	        "$i/tmp-%d$SRC_EXT"
+	magick "$SRC_IMG" -filter     triangle \
+	                  -resize     ${LVL_SZ[i]}x${LVL_SZ[i]} \
+	                  -gravity    center \
+	                  -background "rgba(255, 255, 255, 0)" \
+	                  -extent     ${LVL_SZ[i]}x${LVL_SZ[i]} \
+	                  +gravity \
+	                  -crop       ${TILE_SZ}x${TILE_SZ} \
+	       "$i/tmp-%d$SRC_EXT"
 
 	for (( j = 0; j < LVL_TLC[i]; j++ )); do
 		mv "$i/tmp-$j$SRC_EXT" "$i/$(( j / LVL_TLW[i] ))/$(( j % LVL_TLW[i] ))$SRC_EXT"
