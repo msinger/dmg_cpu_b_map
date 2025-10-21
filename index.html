@@ -156,6 +156,7 @@
 		height: 256 - topWhiteRows,
 		minimized: L.Browser.mobile,
 		mapOptions: {
+			boxZoom: false,
 			doubleClickZoom: false,
 			dragging: false,
 			scrollWheelZoom: false,
@@ -268,6 +269,7 @@
 			document.addEventListener('mouseup', track_mouse_state);
 		}
 
+		map.boxZoom.disable();
 		map.doubleClickZoom.disable();
 	}
 
