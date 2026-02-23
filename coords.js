@@ -4824,6 +4824,7 @@ var wires_cn={
 "~{tofe}":{h:"<span style=\"text-decoration:overline\">TOFE</span>",a:"w_-126_-123_tofe-125_",l:[[-96.13,137.63,-96.13,139.12,-89.99,139.12,-89.99,137.63,],[-94.59,139.12,-94.59,137.62,],]},
 "~{toxe}":{h:"<span style=\"text-decoration:overline\">TOXE</span>",a:"w_-126_-123_toxe-125_",l:[[-181,55.13,-181,56.24,-179.46,56.24,-179.46,55.13,],[-179.46,55.7,-175.7,55.7,-175.7,55.13,],]},
 "~{tozo}":{h:"<span style=\"text-decoration:overline\">TOZO</span>",a:"w_-126_-123_tozo-125_",l:[[-131.95,55.14,-131.95,57.12,-130.41,57.12,],[-130.41,55.14,-130.41,57.16,-126.3,57.16,-126.3,55.13,],]},
+"~{tubo}":{h:"<span style=\"text-decoration:overline\">TUBO</span>",a:"w_-126_-123_tubo-125_",l:[[-60.95,137.67,-60.95,139.4,-59.75,139.4,-59.75,139.85,],]},
 "~{tufu}":{h:"<span style=\"text-decoration:overline\">TUFU</span>",a:"w_-126_-123_tufu-125_",l:[[-137.76,55.15,-137.76,56.95,-136.23,56.95,],[-136.23,55.14,-136.23,57.29,-132.46,57.29,-132.46,55.13,],]},
 "~{tugo}":{h:"<span style=\"text-decoration:overline\">TUGO</span>",a:"w_-126_-123_tugo-125_",l:[[-102.96,137.63,-102.96,138.43,-101.44,138.43,],[-101.44,137.63,-101.44,139.37,-93.74,139.38,-93.74,137.63,],]},
 "~{tuhu}":{h:"<span style=\"text-decoration:overline\">TUHU</span>",a:"w_-126_-123_tuhu-125_",l:[[-163.05,55.13,-163.05,58.05,-161.52,58.05,-161.52,55.13,],]},
@@ -7596,7 +7597,6 @@ var wires_cn={
 "tozo":{h:"TOZO",a:"w_tozo",l:[[-132.13,55.14,-132.13,57.43,-131.61,57.43,-131.61,58.51,],]},
 "tozu":{h:"TOZU",a:"w_tozu",l:[[-226.13,53.6,-226.13,53.02,-222.2,53.02,-222.2,53.63,],]},
 "tube":{h:"TUBE",a:"w_tube",l:[[-111.25,35.5,-111.25,37.94,-110.91,37.94,-110.91,38.41,-111.53,38.41,-111.53,40.02,-119.63,40.02,-119.67,74.95,-127.07,74.95,-127.08,83.5,-128.73,83.5,-128.73,88.6,-129.24,88.6,],[-129.24,89.05,-129.24,88.47,-130.27,88.47,-130.27,89.05,],]},
-"tubo":{h:"TUBO",a:"w_tubo",l:[[-60.95,137.67,-60.95,139.4,-59.75,139.4,-59.75,139.85,],]},
 "tuby":{h:"TUBY",a:"w_tuby",l:[[-84,136.15,-84,135.32,-77.34,135.32,-72.38,135.33,-69.66,135.33,-69.66,133.42,],[-81.44,135.32,-81.44,130.38,-81.6,130.38,-81.6,126.63,-78.7,126.63,-78.7,122.95,-71.69,122.95,-71.69,121.05,],[-77.34,135.32,-77.34,133.4,],[-72.38,135.33,-72.38,133.4,],[-69.66,135.03,-62.81,135.03,-62.81,133.4,],[-68.63,135.03,-68.63,133.44,],]},
 "tuca":{h:"TUCA",a:"w_tuca",l:[[-90.74,35.53,-90.74,36.63,-108.52,36.62,-108.52,35.5,],]},
 "tucy":{h:"TUCY",a:"w_tucy",l:[[-186.13,53.62,-186.13,53.17,-185.78,53.17,-185.78,50.85,],]},
@@ -12793,6 +12793,7 @@ var wires_grp={
 "tofe":["~{tofe}","tofe",],
 "toxe":["~{toxe}","toxe",],
 "tozo":["~{tozo}","tozo",],
+"tubo":["~{tubo}",],
 "tufu":["~{tufu}","tufu",],
 "tugo":["~{tugo}","tugo",],
 "tuhu":["~{tuhu}",],
@@ -15301,7 +15302,6 @@ var wires_grp={
 "toza":["toza",],
 "tozu":["tozu",],
 "tube":["tube",],
-"tubo":["tubo",],
 "tuby":["tuby",],
 "tuca":["tuca",],
 "tucy":["tucy",],
@@ -15902,7 +15902,7 @@ var qtree={p:[-256,0,0,256],d:[{p:[-128,0,0,128],d:[{p:[-64,0,0,64],d:[{p:[-32,0
 ,{p:[-32,160,0,192],c:["a5","a6","a7","a8",],w:[]}
 ,{p:[-64,128,-32,160],d:[{p:[-48,128,-32,144],c:["~{nmi}","a10","a11",],w:["~{a10_in}","~{a8_in}","~{a9_in}","~{clk_1mhz}","~{data_phase}","~{pch_phase}","clk_1mhz","clk_ena","cpu_sys_reset","cpu_wr_sync","exec_phase","gnd","lyny","mego","meny","mreq","mune","myny","nmi","osc_ena","osc_stable","reset","rore","roxu","vdd",]}
 ,{p:[-48,144,-32,160],c:["a10","a8","a9",],w:["~{a8_in}","~{a9_in}","~{clk_1mhz}","~{data_phase}","~{pch_phase}","~{rd_in}","~{t1}","~{t2}","~{test_reset}","~{wr_in}","clk_1mhz","clk_ena","cpu_sys_reset","cpu_wr_sync","exec_phase","gnd","int_serial","mego","meny","mreq","mune","myny","osc_ena","osc_stable","reset","rore","t1~{t2}","ugac","urun","usuf","uver","vdd",]}
-,{p:[-64,128,-48,144],c:["rate","repa","rugy","salu","soce","sosy","sura","suro","syru","taba","tova","tubo","tyva","uket","unut","upof",],w:["~{a10_in}","~{clk_t4}","~{exec_phase}","~{ext_addr_en}","~{rate}","~{reset_div}","~{reset2}","~{t1}t2","~{teka}","~{tyva}","~{uket}","~{upof}","16hz","clk_1mhz","clk_ena","clk_t4","cpu_ext_cs_en","d3","d5","data_phase","gnd","mexu","mulo","osc_stable","rate","repa","rore","roxu","rugy","soce","sufy","sura","syru","t1~{t2}","teda","tope","tubo","tuby","tyho","tyju","tyva","unut","upyf","vdd","write",]}
+,{p:[-64,128,-48,144],c:["rate","repa","rugy","salu","soce","sosy","sura","suro","syru","taba","tova","tubo","tyva","uket","unut","upof",],w:["~{a10_in}","~{clk_t4}","~{exec_phase}","~{ext_addr_en}","~{rate}","~{reset_div}","~{reset2}","~{t1}t2","~{teka}","~{tubo}","~{tyva}","~{uket}","~{upof}","16hz","clk_1mhz","clk_ena","clk_t4","cpu_ext_cs_en","d3","d5","data_phase","gnd","mexu","mulo","osc_stable","rate","repa","rore","roxu","rugy","soce","sufy","sura","syru","t1~{t2}","teda","tope","tuby","tyho","tyju","tyva","unut","upyf","vdd","write",]}
 ,{p:[-64,144,-48,160],d:[{p:[-56,144,-48,152],c:["abol","apov","araf","arev","atez",],w:["~{clk_1mhz}","~{clk_t4}","~{data_phase}","~{exec_phase}","~{ext_addr_en}","~{pch_phase}","~{rd_in}","~{t1}","~{t1}t2","~{t2}","~{test_reset}","~{wr_in}","afas","clk_1mhz","clk_ena","clk_t4","cpu_ext_cs_en","cpu_wr_sync","data_phase","exec_phase","gnd","int_serial","osc_ena","t1~{t2}","tyho","ugac","urun","usuf","uver","vdd","write",]}
 ,{p:[-56,152,-48,160],c:["abuz","afas","afer","agut","ajax","alur","arev","asol","avor","awod","azup",],w:["~{ext_addr_en}","~{pch_phase}","~{test_reset}","afas","agut","ajax","clk_t4","cpu_ext_cs_en","cpu_sys_reset","data_phase","gnd","mreq","osc_ena","reset","t1~{t2}","tyho","vdd",]}
 ,{p:[-64,144,-56,152],c:["abol","apov","araf","arev","atez","boga","boma",],w:["~{clk_1mhz}","~{clk_ena}","~{clk_t4}","~{data_phase}","~{exec_phase}","~{ext_addr_en}","~{pch_phase}","~{rd_in}","~{reset2}","~{t1}","~{t1}t2","~{t2}","~{test_reset}","~{wr_in}","afas","arev","atez","azof","baly","clk_1mhz","clk_ena","clk_t4","cpu_wr_sync","data_phase","exec_phase","gnd","int_serial","osc_ena","t1~{t2}","ugac","urun","usuf","uver","vdd","write",]}
