@@ -4281,7 +4281,6 @@ var wires_cn={
 "~{atep}":{h:"<span style=\"text-decoration:overline\">ATEP</span>",a:"w_-126_-123_atep-125_",l:[[-64.41,183.79,-64.41,183.09,-62.87,183.09,-62.87,183.8,],]},
 "~{atuf}":{h:"<span style=\"text-decoration:overline\">ATUF</span>",a:"w_-126_-123_atuf-125_",l:[[-213.09,185.21,-213.09,187.36,-212.42,187.36,-212.42,189.2,],]},
 "~{atyk}":{h:"<span style=\"text-decoration:overline\">ATYK</span>",a:"w_-126_-123_atyk-125_",l:[[-201.13,185.2,-201.13,187.53,],[-199.59,185.2,-199.59,187.53,-201.64,187.53,-201.64,185.21,],]},
-"~{avaf}":{h:"<span style=\"text-decoration:overline\">AVAF</span>",a:"w_-126_-123_avaf-125_",l:[[-182.67,185.22,-182.67,187.37,-180.62,187.37,-180.62,185.21,],[-182.67,187.24,-191.22,187.24,-191.22,185.2,],]},
 "~{avok}":{h:"<span style=\"text-decoration:overline\">AVOK</span>",a:"w_-126_-123_avok-125_",l:[[-204.03,185.21,-204.03,187.53,-202.5,187.53,-202.5,185.2,],]},
 "~{axuv}":{h:"<span style=\"text-decoration:overline\">AXUV</span>",a:"w_-126_-123_axuv-125_",l:[[-200.18,83.92,-200.18,82.4,-198.46,82.4,-198.46,83.93,],]},
 "~{azap}":{h:"<span style=\"text-decoration:overline\">AZAP</span>",a:"w_-126_-123_azap-125_",l:[[-214.7,85.41,-214.7,87.38,-213.85,87.38,-213.85,88.99,],]},
@@ -4491,6 +4490,7 @@ var wires_cn={
 "~{ff10_d0}":{h:"<span style=\"text-decoration:overline\">FF10_D0</span>",a:"w_-126_-123_ff10_d0-125_",l:[[-182.85,190.71,-182.85,192.41,-188.14,192.41,],[-188.14,190.7,-188.14,193.21,-195.49,193.2,-195.49,187.38,-195.66,187.38,-195.66,185.21,],[-195.49,192.52,-199.09,192.52,-199.09,193.66,],[-199.09,192.95,-201.31,192.95,-201.31,193.66,],]},
 "~{ff10_d1}":{h:"<span style=\"text-decoration:overline\">FF10_D1</span>",a:"w_-126_-123_ff10_d1-125_",l:[[-188.31,185.21,-188.31,188.26,-187.97,188.26,-187.97,189.23,],[-188.31,188.13,-193.62,188.13,-193.62,185.21,],[-193.62,187.66,-195.83,187.66,-195.83,192.27,],[-195.66,193.66,-195.66,192.27,-197.89,192.27,-197.89,193.68,],]},
 "~{ff10_d2}":{h:"<span style=\"text-decoration:overline\">FF10_D2</span>",a:"w_-126_-123_ff10_d2-125_",l:[[-184.38,185.23,-184.38,188.52,-187.8,188.52,-194.63,188.51,-197.38,188.51,-197.38,189.24,],[-187.8,188.52,-187.8,189.23,],[-194.63,188.51,-194.63,185.19,],[-195.15,188.51,-195.15,189.23,],]},
+"~{ff10_d3}":{h:"<span style=\"text-decoration:overline\">FF10_D3</span>",a:"w_-126_-123_ff10_d3-125_",l:[[-182.67,185.22,-182.67,187.37,-180.62,187.37,-180.62,185.21,],[-182.67,187.24,-191.22,187.24,-191.22,185.2,],]},
 "~{ff10_d4}":{h:"<span style=\"text-decoration:overline\">FF10_D4</span>",a:"w_-126_-123_ff10_d4-125_",l:[[-190.19,183.73,-190.19,182.13,-180.27,182.14,-180.27,186.52,-179.25,186.52,-179.25,191.94,-175.16,191.94,-175.16,193.67,],[-177.38,191.94,-177.38,193.67,],]},
 "~{ff10_d5}":{h:"<span style=\"text-decoration:overline\">FF10_D5</span>",a:"w_-126_-123_ff10_d5-125_",l:[[-189.16,185.22,-189.16,186.81,-184.56,186.81,-184.56,191.38,-181.66,191.38,-181.66,193.69,],[-181.66,192.27,-179.09,192.27,-179.09,190.71,],[-179.44,192.27,-179.44,193.67,],]},
 "~{ff10_d6}":{h:"<span style=\"text-decoration:overline\">FF10_D6</span>",a:"w_-126_-123_ff10_d6-125_",l:[[-178.91,189.22,-178.91,187.67,-181.14,187.67,-181.14,191.51,-183.2,191.51,-183.2,193.67,],[-179.59,187.67,-179.59,182.52,-192.58,182.51,-192.58,183.73,],[-183.2,192.28,-185.41,192.28,-185.41,193.66,],]},
@@ -4838,6 +4838,7 @@ var wires_cn={
 "~{ufor}":{h:"<span style=\"text-decoration:overline\">UFOR</span>",a:"w_-126_-123_ufor-125_",l:[[-100.58,141.3,-100.58,143.88,-99.05,143.88,-99.05,141.29,],[-99.05,142.4,-76.66,142.41,-76.66,141.3,],]},
 "~{ugot}":{h:"<span style=\"text-decoration:overline\">UGOT</span>",a:"w_-126_-123_ugot-125_",l:[[-103.49,141.31,-103.49,143.51,-101.95,143.51,-101.95,139.11,-97.67,139.11,-97.67,137.63,],]},
 "~{uket}":{h:"<span style=\"text-decoration:overline\">UKET</span>",a:"w_-126_-123_uket-125_",l:[[-65.9,141.33,-65.9,143.65,-60.61,143.65,-60.61,141.34,],[-64.36,143.65,-64.36,141.34,],]},
+"~{ukup}":{h:"<span style=\"text-decoration:overline\">UKUP</span>",a:"w_-126_-123_ukup-125_",l:[[-97,141.3,-97,143.38,-98.2,143.38,-98.2,141.3,],[-97,142.83,-95.46,142.83,-95.46,141.3,],]},
 "~{uner}":{h:"<span style=\"text-decoration:overline\">UNER</span>",a:"w_-126_-123_uner-125_",l:[[-79.05,139.84,-79.05,138.88,-76.31,138.88,-76.31,137.63,],[-77.51,138.88,-77.51,139.84,],]},
 "~{unyk}":{h:"<span style=\"text-decoration:overline\">UNYK</span>",a:"w_-126_-123_unyk-125_",l:[[-67.27,141.33,-67.27,143.23,-68.8,143.23,-68.8,138.84,-72.38,138.84,-72.38,137.66,],]},
 "~{upof}":{h:"<span style=\"text-decoration:overline\">UPOF</span>",a:"w_-126_-123_upof-125_",l:[[-62.99,141.34,-62.99,142.98,-61.46,142.98,-61.46,141.34,],]},
@@ -7660,7 +7661,6 @@ var wires_cn={
 "ugot":{h:"UGOT",a:"w_ugot",l:[[-103.67,141.3,-103.67,143.89,-105.04,143.89,-105.04,141.3,],]},
 "ujyv":{h:"UJYV",a:"w_ujyv",l:[[-81.28,139.83,-81.28,138.41,-80.59,138.41,-80.59,137.63,],]},
 "ukap":{h:"UKAP",a:"w_ukap",l:[[-89.48,139.82,-89.48,138.95,-89.13,138.95,-89.13,137.63,],]},
-"ukup":{h:"UKUP",a:"w_ukup",l:[[-97,141.3,-97,143.38,-98.2,143.38,-98.2,141.3,],[-97,142.83,-95.46,142.83,-95.46,141.3,],]},
 "ulur":{h:"ULUR",a:"w_ulur",l:[[-94.27,141.3,-94.27,142.58,-101.1,142.56,-101.1,141.3,],]},
 "umob":{h:"UMOB",a:"w_umob",l:[[-221.91,76.88,-221.91,75.23,-192.7,75.25,-192.7,75.93,-136.8,75.95,-136.8,80.4,-122.45,80.41,-122.48,116.27,-109.64,116.28,-109.7,142.62,-107.09,142.62,-107.09,141.3,],]},
 "unut":{h:"UNUT",a:"w_unut",l:[[-60.27,139.83,-60.27,138.95,-60.09,138.95,-60.09,137.66,],]},
@@ -12250,7 +12250,6 @@ var wires_grp={
 "atep":["~{atep}","atep",],
 "atuf":["~{atuf}",],
 "atyk":["~{atyk}",],
-"avaf":["~{avaf}",],
 "avok":["~{avok}","avok",],
 "axuv":["~{axuv}",],
 "azap":["~{azap}",],
@@ -12460,6 +12459,7 @@ var wires_grp={
 "ff10_d0":["~{ff10_d0}",],
 "ff10_d1":["~{ff10_d1}",],
 "ff10_d2":["~{ff10_d2}",],
+"ff10_d3":["~{ff10_d3}",],
 "ff10_d4":["~{ff10_d4}",],
 "ff10_d5":["~{ff10_d5}",],
 "ff10_d6":["~{ff10_d6}",],
@@ -12807,6 +12807,7 @@ var wires_grp={
 "ufor":["~{ufor}","ufor",],
 "ugot":["~{ugot}","ugot",],
 "uket":["~{uket}",],
+"ukup":["~{ukup}",],
 "uner":["~{uner}",],
 "unyk":["~{unyk}",],
 "upof":["~{upof}",],
@@ -15356,7 +15357,6 @@ var wires_grp={
 "ugac":["ugac",],
 "ujyv":["ujyv",],
 "ukap":["ukap",],
-"ukup":["ukup",],
 "ulur":["ulur",],
 "umob":["umob",],
 "unut":["unut",],
@@ -15957,7 +15957,7 @@ var qtree={p:[-256,0,0,256],d:[{p:[-128,0,0,128],d:[{p:[-64,0,0,64],d:[{p:[-32,0
 ,{p:[-96,128,-92,132],c:["raru","rofo","rowe","ryke","ryla","samy","sopu",],w:["~{dma_a9}","~{ff0f_wr}","~{sabo}","~{samy}","~{sopu}","addr_latch","clk_1mhz","const0","cpu_irq4","d0","d1","d3","d5","d6","d7","gnd","leco","sora","vdd",]}
 ,{p:[-96,132,-92,136],c:["samy","sopu","teko","teru","tofe",],w:["~{reset2}","~{teru}","a1","addr_latch","clk_1mhz","cpu_irq4","cpu_rd","d0","d1","d4","d6","ff04_ff07","gnd","samy","sara","sopu","tagy",]}
 ,]}
-,{p:[-96,136,-88,144],c:["tecy","teko","teru","tofe","toga","tyme","ufeg","ukap","ukup","ulak","ulur","uvyr",],w:["~{reset_div}","~{reset2}","~{t2}","~{tama}","~{teru}","~{tofe}","~{tugo}","~{ufor}","16384hz","262144hz","4096hz","65536hz","a0","addr_latch","clk_1mhz","cpu_irq4","cpu_wr","d4","ff00_ff03","ff60_d1","gnd","int_jp","lamo","luma","pesu_const1","rotu","samy","sopu","t1~{t2}","tecy","teko","tero","teru","toga","tyme","ufeg","ukap","ukup","ulur","vdd",]}
+,{p:[-96,136,-88,144],c:["tecy","teko","teru","tofe","toga","tyme","ufeg","ukap","ukup","ulak","ulur","uvyr",],w:["~{reset_div}","~{reset2}","~{t2}","~{tama}","~{teru}","~{tofe}","~{tugo}","~{ufor}","~{ukup}","16384hz","262144hz","4096hz","65536hz","a0","addr_latch","clk_1mhz","cpu_irq4","cpu_wr","d4","ff00_ff03","ff60_d1","gnd","int_jp","lamo","luma","pesu_const1","rotu","samy","sopu","t1~{t2}","tecy","teko","tero","teru","toga","tyme","ufeg","ukap","ulur","vdd",]}
 ,]}
 ,{p:[-96,144,-80,160],c:["wave_ram","ybyw","ycaw","ydos","yfal","yhes","yhyb","yjag","ykor","ykus","ykyt","yloh","ymeb","ynuj","ynyv","ytob","ytor","yxaj","yxow",],w:["~{reset2}","~{t1}","~{t1}t2","~{t2}","~{wave_ram_bl_precharge}","~{wr_in}","addr_latch","azof","boot_sel","clk_1mhz","cpu_rd","d0","d1","d2","d3","d4","d5","d6","d7","ff60_d1","gnd","int_jp","t1~{t2}","urun","urys","usuf","uver","vdd","wave_~{a1}~{a0}","wave_~{a1}a0","wave_a1~{a0}","wave_a1a0","wave_ram_wr2","ybor","yula",]}
 ,]}
@@ -15983,7 +15983,7 @@ var qtree={p:[-256,0,0,256],d:[{p:[-128,0,0,128],d:[{p:[-64,0,0,64],d:[{p:[-32,0
 ,]}
 ,]}
 ,{p:[-128,128,-96,160],d:[{p:[-112,128,-96,144],d:[{p:[-104,128,-96,136],c:["rase","rejy","reka","rema","romy","ryfo","ryke","ryne","sabo","sano","sapa","sapy","sara","sefy","sopu","sora","supe","taku","tofe","tugo","tulu","tuse",],w:["~{dma_a10}","~{ff0f_wr}","~{reset2}","~{sabo}","~{sopu}","a0","a1","a2","a3","const0","cpu_rd","cpu_wr","d0","d1","d2","d3","d4","d6","dma_a5","dma_phi","ff00_ff03","ff04_ff07","ffxx","gnd","leco","pusy","sapy","sara","sefy","sora","tagy","tofe","vdd","xx00_xx07",]}
-,{p:[-104,136,-96,144],c:["taku","tofe","tugo","tulu","tuse","ubot","ufor","ugot","ukup","urek","uvyt",],w:["~{reset_div}","~{tofe}","~{tugo}","~{tulu}","~{ufor}","~{ugot}","262144hz","4096hz","a0","a1","cpu_wr","d1","d4","data_phase","dma_phi","ff00_ff03","gnd","luma","sapy","t1~{t2}","tagy","teru","tofe","tugo","tulu","ufor","ugot","ukup","ulur","vdd",]}
+,{p:[-104,136,-96,144],c:["taku","tofe","tugo","tulu","tuse","ubot","ufor","ugot","ukup","urek","uvyt",],w:["~{reset_div}","~{tofe}","~{tugo}","~{tulu}","~{ufor}","~{ugot}","~{ukup}","262144hz","4096hz","a0","a1","cpu_wr","d1","d4","data_phase","dma_phi","ff00_ff03","gnd","luma","sapy","t1~{t2}","tagy","teru","tofe","tugo","tulu","ufor","ugot","ulur","vdd",]}
 ,{p:[-112,128,-104,136],c:["refa","rolo","sapa","sare","semy","tawu","temu","tuse",],w:["~{ff0f_rd}","~{ff0f_wr}","a2","a3","a4","a5","a6","a7","const0","cpu_rd","cpu_wr","d0","d1","d2","d3","d4","d5","d6","d7","dma_a5","dma_phi","exec_phase","ffxx","gnd","luma","sapa","semy","t1~{t2}","umob","usec","vdd","xx00_xx07",]}
 ,{p:[-112,136,-104,144],c:["tawu","temu","tuse","umek","umer","umob","upug","usec","utok","uvyt",],w:["4096hz","512hz","8192hz","a0","a1","a3","a5","cpu_wr","d0","d2","d3","d4","dma_phi","exec_phase","gnd","luma","t1~{t2}","tagy","teru","tugo","ugot","umob","usec","utok","vdd",]}
 ,]}
@@ -16587,9 +16587,9 @@ var qtree={p:[-256,0,0,256],d:[{p:[-128,0,0,128],d:[{p:[-64,0,0,64],d:[{p:[-32,0
 ,]}
 ,{p:[-192,160,-176,176],c:["oam_a","oam_b","tafo","tane","teho","tete","togu","tonu","tugy","tury",],w:["~{amp_en}","~{ch4_amp_en}","~{oam_bl_precharge}","~{oam_wldrv_precharge}","amp_en","ch4_out[0]","ch4_out[1]","ch4_out[2]","ch4_out[3]","gnd","oam_~{a2}~{a1}","oam_~{a2}a1","oam_~{a3}","oam_~{a4}","oam_~{a5}","oam_~{a6}","oam_~{a7}","oam_~{oe}","oam_a2~{a1}","oam_a2a1","oam_a3","oam_a4","oam_a5","oam_a6","oam_a7","oam_b_wr2","oam_oe","r_vin_en","rmixer0","rmixer1","rmixer2","rmixer3","vdd","vin",]}
 ,{p:[-192,176,-176,192],d:[{p:[-184,176,-176,184],c:["adek","agez","anaz","apef","aryl","avaf",],w:["~{apu_reset}","~{ch4_amp_en}","~{ff10_d4}","~{ff10_d6}","512hz","afux","ahyc","amp_en","befu","buze","byfa","cenu","ch4_out[0]","ch4_out[1]","ch4_out[2]","ch4_out[3]","d1","d2","d3","d4","gnd","vdd","vin",]}
-,{p:[-184,184,-176,192],c:["adek","agez","anaz","apef","aryl","avaf","bana","bany","bave","bexa","botu",],w:["~{apu_reset}","~{avaf}","~{bylu}","~{ff10_d0}","~{ff10_d4}","~{ff10_d5}","~{ff10_d6}","agez","agor","ahyc","ajer","apef","apu_4mhz","apu_reset","aryl","bave","becy","beso","bexa","bono","bosu","bury","cenu","ch1_ld_sum","coze","d0","d2","d3","d4","d5","d6","gnd","vdd",]}
+,{p:[-184,184,-176,192],c:["adek","agez","anaz","apef","aryl","avaf","bana","bany","bave","bexa","botu",],w:["~{apu_reset}","~{bylu}","~{ff10_d0}","~{ff10_d3}","~{ff10_d4}","~{ff10_d5}","~{ff10_d6}","agez","agor","ahyc","ajer","apef","apu_4mhz","apu_reset","aryl","bave","becy","beso","bexa","bono","bosu","bury","cenu","ch1_ld_sum","coze","d0","d2","d3","d4","d5","d6","gnd","vdd",]}
 ,{p:[-192,176,-184,184],c:["adad","afox","agur","ahyc","akux","anaz","arax","atat","atus","avek","awos",],w:["~{ch4_amp_en}","~{ff10_d4}","~{ff10_d6}","512hz","ahyc","amp_en","asop","befu","buze","byfa","ch4_out[0]","ch4_out[1]","ch4_out[2]","ch4_out[3]","d1","d4","gnd","r_vin_en","rmixer0","rmixer1","rmixer2","rmixer3","vdd","vin",]}
-,{p:[-192,184,-184,192],c:["adad","afox","agur","ahyc","akux","anaz","arax","atat","atus","avek","awos","bana","bara","buge","bure","bylu","byte",],w:["~{apu_reset}","~{avaf}","~{bara}","~{bylu}","~{byte}","~{caru}","~{ff10_d0}","~{ff10_d1}","~{ff10_d2}","~{ff10_d5}","~{no_sweep}","ajer","apu_4mhz","apu_reset","asop","atat","atus","bexa","bono","bosu","bure","cenu","ch1_ld_sum","coke","copy","d0","d2","d3","d4","d5","d6","gnd","vdd",]}
+,{p:[-192,184,-184,192],c:["adad","afox","agur","ahyc","akux","anaz","arax","atat","atus","avek","awos","bana","bara","buge","bure","bylu","byte",],w:["~{apu_reset}","~{bara}","~{bylu}","~{byte}","~{caru}","~{ff10_d0}","~{ff10_d1}","~{ff10_d2}","~{ff10_d3}","~{ff10_d5}","~{no_sweep}","ajer","apu_4mhz","apu_reset","asop","atat","atus","bexa","bono","bosu","bure","cenu","ch1_ld_sum","coke","copy","d0","d2","d3","d4","d5","d6","gnd","vdd",]}
 ,]}
 ,]}
 ,]}
