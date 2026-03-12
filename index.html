@@ -20,8 +20,7 @@
 
 	var params = new URLSearchParams(document.location.search.substring(1));
 
-	var digshadowAtr = "CC-BY-4.0 digshadow/<a href=\"https://siliconpr0n.org/map/nintendo/dmg-cpu-b/\">siliconpr0n.org</a>";
-	var siliconpr0nAtr = "CC-BY-4.0 <a href=\"https://siliconpr0n.org/map/nintendo/dmg-cpu-b/\">siliconpr0n.org</a>";
+	var mcmasterAtr = "CC-BY-4.0 mcmaster/<a href=\"https://siliconpr0n.org/map/nintendo/dmg-cpu-b/\">siliconpr0n.org</a>";
 	var furrtekAtr = "CC-BY-SA-4.0 <a href=\"https://github.com/furrtek/DMG-CPU-Inside\">Furrtek</a>";
 	var iceboyAtr = "CC-BY-SA-4.0 <a href=\"https://github.com/msinger/dmg-schematics\">Règis Galland &amp; Michael Singer</a>";
 
@@ -31,7 +30,7 @@
 		switch (name) {
 			case "die_mz_20x":
 				return L.tileLayer('map/die_mz_20x/{z}/{y}/{x}.jpg', {
-					attribution: digshadowAtr,
+					attribution: mcmasterAtr,
 					maxNativeZoom: 6,
 					tileSize: 256,
 					noWrap: true,
@@ -39,7 +38,7 @@
 				});
 			case "die_s1_1_20x":
 				return L.tileLayer('map/die_s1_1_20x/{z}/{y}/{x}.jpg', {
-					attribution: siliconpr0nAtr,
+					attribution: mcmasterAtr,
 					maxNativeZoom: 6,
 					tileSize: 256,
 					noWrap: true,
