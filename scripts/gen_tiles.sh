@@ -21,6 +21,8 @@ else
 	SRC_EXT=.${SRC_EXT}
 fi
 
+DST_EXT=${DST_EXT:-${SRC_EXT}}
+
 mkdir -p "$OUT_DIR"
 cd "$OUT_DIR"
 if [ -z "$(find . -maxdepth 0 -type d -empty 2>/dev/null)" ]; then
@@ -62,9 +64,9 @@ for (( i = 0; i <= MAX_ZOOM; i++ )); do
 	                  -extent     ${LVL_SZ[i]}x${LVL_SZ[i]} \
 	                  +gravity \
 	                  -crop       ${TILE_SZ}x${TILE_SZ} \
-	       "$i/tmp-%d$SRC_EXT"
+	       "$i/tmp-%d$DST_EXT"
 
 	for (( j = 0; j < LVL_TLC[i]; j++ )); do
-		mv "$i/tmp-$j$SRC_EXT" "$i/$(( j / LVL_TLW[i] ))/$(( j % LVL_TLW[i] ))$SRC_EXT"
+		mv "$i/tmp-$j$DST_EXT" "$i/$(( j / LVL_TLW[i] ))/$(( j % LVL_TLW[i] ))$DST_EXT"
 	done
 done

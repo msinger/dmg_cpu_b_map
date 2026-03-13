@@ -58,8 +58,8 @@ The scripts require ImageMagick! to be installed. After running the transformati
 should look like this:
 ```
 img_src/cells.png
-img_src/die_mz_20x.jpg
-img_src/die_s1_1_20x.jpg
+img_src/die_mz_20x.png
+img_src/die_s1_1_20x.png
 img_src/floorplan.png
 img_src/labels.png
 img_src/nintendo_dmg-cpu-b_mcmaster_mz_mit20x.jpg
@@ -67,8 +67,8 @@ img_src/nintendo_dmg-cpu-b_mcmaster_s1-1_mit20x.jpg
 img_src/wires.png
 ```
 
-The original two die shots are no longer required now. The newly generated die shots (`die_mz_20x.jpg` and
-`die_s1_1_20x.jpg`) have the same size as the PNG overlays and are aligned with them.
+The original two die shots are no longer required now. The newly generated die shots (`die_mz_20x.png` and
+`die_s1_1_20x.png`) have the same size as the PNG overlays and are aligned with them.
 
 While your working directory is still the `scripts` directory, run the last script that converts all images to tiles:
 ```
