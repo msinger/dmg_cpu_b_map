@@ -1,7 +1,7 @@
 Game Boy DMG CPU B Leaflet Map
 ==============================
 
-Web-based map of the Gameboy DMG-CPU B with overlays.
+Web-based map of the Game Boy DMG-CPU B chip with overlays.
 
 Made with [Leaflet](https://leafletjs.com/), [Leaflet-Minimap](https://github.com/Norkart/Leaflet-MiniMap/),
 [Leaflet-Nanoscale](https://github.com/whitequark/Leaflet.Nanoscale/) and
@@ -19,37 +19,61 @@ You can use the latest version of the map [here](http://iceboy.a-singer.de/dmg_c
 Getting the images and generating the tiles
 -------------------------------------------
 
-The actual images are not included in this repository. They have to be manually exported from Inkscape
-and then processed by `scripts/gen_tiles.sh`.
+The source images that are needed to create the tile layers for the map are not part of this repository. The die shots
+have to be downloaded and the transparent overlays can either be generated from netslists or downloaded from github as
+explained below.
 
-You can get the SVG file which contains the cells, wires and labels overlays
-[here](https://github.com/msinger/dmg-schematics/tree/master/dmg_cpu_b/overlay).
+First, create a folder named `img_src` in this repositories top level directory, so we can put the source images
+in there. The scripts in the `script` folder take the source images from there.
 
-Short instructions and download links for the die shots can be found
-[here](https://github.com/msinger/dmg-schematics#overlay).
+Download the two die shots (`nintendo_dmg-cpu-b_mcmaster_mz_mit20x.jpg` and
+`nintendo_dmg-cpu-b_mcmaster_s1-1_mit20x.jpg`) from [here](https://siliconpr0n.org/map/nintendo/dmg-cpu-b/single/)
+and put them into the `img_src` folder (or symlink them from there).
 
-Once you've opened the SVG in Inkscape, you have to export each layer, one by one, using these export settings:
+You can download the latest overlay images from [here](https://iceboy.a-singer.de/dmg_cpu_b_map/img_src/)
+or you can generate them by yourself. Either way, place the images into the `img_src` folder as well. To generate them
+yourself, you need the netlists from the [dmg-schematics](https://github.com/msinger/dmg-schematics) repository and
+the conversion tool from [here](https://github.com/msinger/nlconv). Build the conversion tool (nlconv.exe) like described
+[here](https://github.com/msinger/nlconv/blob/master/INSTALL). You need to have `mono` installed. Then change into the
+`netlist` directory of the dmg-schematics repository and run `make cells floorplan labels wires`. This generates four PNG
+files: `cells.png`, `floorplan.png`, `labels.png` and `wires.png`. Copy them into your `img_src` directory.
 
-![export settings](inkscape_export_settings.png)<br>
+You should now have the following source image files:
+```
+img_src/cells.png
+img_src/floorplan.png
+img_src/labels.png
+img_src/nintendo_dmg-cpu-b_mcmaster_mz_mit20x.jpg
+img_src/nintendo_dmg-cpu-b_mcmaster_s1-1_mit20x.jpg
+img_src/wires.png
+```
 
-Export the transparent layers as PNGs and the die shots as JPEG.
+Now change into the `scripts` directory and run the script that applies some transformations to the die shots:
+```
+cd scripts
+./transform_die_shots.sh
+```
 
-Create a folder called `img_src` in this repo and put the files in there with the following names:
+The scripts require ImageMagick! to be installed. After running the transformation, your `img_src` directory
+should look like this:
 ```
 img_src/cells.png
 img_src/die_mz_20x.jpg
 img_src/die_s1_1_20x.jpg
+img_src/floorplan.png
 img_src/labels.png
+img_src/nintendo_dmg-cpu-b_mcmaster_mz_mit20x.jpg
+img_src/nintendo_dmg-cpu-b_mcmaster_s1-1_mit20x.jpg
 img_src/wires.png
 ```
 
-Then change into the `scripts` directory and run the script that converts all images to tiles:
+The original two die shots are no longer required now. The newly generated die shots (`die_mz_20x.jpg` and
+`die_s1_1_20x.jpg`) have the same size as the PNG overlays and are aligned with them.
+
+While your working directory is still the `scripts` directory, run the last script that converts all images to tiles:
 ```
-cd scripts
 ./gen_all.sh
 ```
-`gen_all.sh` runs `gen_tiles.sh` for each of the images, which uses ImageMagick's `convert` command for cropping and
-scaling the images. So you need to have ImageMagick installed for this to work.
 
 The tiles will be output into the `map` directory. Now you should be able to open the `index.html` file
-in a browser to use the map.
+in a browser to use the map. You can delete the `img_src` directory now to save space.

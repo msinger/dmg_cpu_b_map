@@ -1,12 +1,12 @@
 #!/bin/sh
 
 # Input pictures are:
-#  ../img_src/die_mz_20x.jpg:   16384x16215 pixels
-#  ../img_src/die_s1_1_20x.jpg: 16384x16215 pixels
-#  ../img_src/cells.png:        16384x16215 pixels
-#  ../img_src/wires.png:        16384x16215 pixels
-#  ../img_src/labels.png:       16384x16215 pixels
-#  ../img_src/floorplan.png:    16384x16215 pixels
+#  ../img_src/die_mz_20x.jpg:   16384x16384 pixels
+#  ../img_src/die_s1_1_20x.jpg: 16384x16384 pixels
+#  ../img_src/cells.png:        16384x16384 pixels
+#  ../img_src/wires.png:        16384x16384 pixels
+#  ../img_src/labels.png:       16384x16384 pixels
+#  ../img_src/floorplan.png:    16384x16384 pixels
 #
 # This should produce:
 #  die_mz_20x   with zoom level 0...6
