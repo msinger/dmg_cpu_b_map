@@ -20,8 +20,8 @@ Getting the images and generating the tiles
 -------------------------------------------
 
 The source images that are needed to create the tile layers for the map are not part of this repository. The die shots
-have to be downloaded and the transparent overlays can either be generated from netslists or downloaded from github as
-explained below.
+have to be downloaded and the transparent overlays can either be generated from netslists or downloaded as explained
+below.
 
 First, create a folder named `img_src` in this repositories top level directory, so we can put the source images
 in there. The scripts in the `script` folder take the source images from there.
