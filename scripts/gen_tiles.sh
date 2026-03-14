@@ -5,11 +5,12 @@ set -e
 SRC_IMG=$1
 OUT_DIR=$2
 TILE_SZ=$3
+QUALITY=$4
 
 if [ -z "$SRC_IMG" -o -z "$OUT_DIR" -o -z "$TILE_SZ" ] ||
    ![ "$TILE_SZ" -eq "$TILE_SZ" ] 2>/dev/null ||
    [[ TILE_SZ -le 0 ]]; then
-	echo "Usage: ./gen_tiles.sh <source_img> <out_dir> <tile_size>" >&2
+	echo "Usage: ./gen_tiles.sh <source_img> <out_dir> <tile_size> <quality>" >&2
 	exit 1
 fi
 
@@ -22,6 +23,10 @@ else
 fi
 
 DST_EXT=${DST_EXT:-${SRC_EXT}}
+
+if [ -n "$QUALITY" ]; then
+	QUALITY="-quality $QUALITY"
+fi
 
 mkdir -p "$OUT_DIR"
 cd "$OUT_DIR"
@@ -64,6 +69,8 @@ for (( i = 0; i <= MAX_ZOOM; i++ )); do
 	                  -extent     ${LVL_SZ[i]}x${LVL_SZ[i]} \
 	                  +gravity \
 	                  -crop       ${TILE_SZ}x${TILE_SZ} \
+	                  $QUALITY \
+	                  -strip \
 	       "$i/tmp-%d$DST_EXT"
 
 	for (( j = 0; j < LVL_TLC[i]; j++ )); do

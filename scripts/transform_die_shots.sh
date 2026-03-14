@@ -16,7 +16,7 @@ magick ../img_src/nintendo_dmg-cpu-b_mcmaster_mz_mit20x.jpg \
 
 magick ../img_src/nintendo_dmg-cpu-b_mcmaster_s1-1_mit20x.jpg \
        -filter     triangle \
-       -resize     16302x14783! \
+       -resize     16302x14783\! \
        -background white \
        -gravity    northwest \
        -extent     16384x16215-39-1440 \

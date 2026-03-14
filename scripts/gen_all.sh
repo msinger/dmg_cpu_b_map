@@ -18,8 +18,8 @@
 
 set -e
 TILE_SZ=256
-DST_EXT=.jpg ./gen_tiles.sh ../img_src/die_mz_20x.png ../map/die_mz_20x $TILE_SZ
-DST_EXT=.jpg ./gen_tiles.sh ../img_src/die_s1_1_20x.png ../map/die_s1_1_20x $TILE_SZ
+DST_EXT=.jpg ./gen_tiles.sh ../img_src/die_mz_20x.png ../map/die_mz_20x $TILE_SZ 90
+DST_EXT=.jpg ./gen_tiles.sh ../img_src/die_s1_1_20x.png ../map/die_s1_1_20x $TILE_SZ 90
 ./gen_tiles.sh ../img_src/cells.png ../map/cells $TILE_SZ
 ./gen_tiles.sh ../img_src/wires.png ../map/wires $TILE_SZ
 ./gen_tiles.sh ../img_src/labels.png ../map/labels $TILE_SZ
