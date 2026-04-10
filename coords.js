@@ -24,6 +24,7 @@ var cell_types={
 "drlatch_ee":{h:"DRLATCH_EE",a:"t_drlatch_ee",d:"Gated data latch with externally inverted enable inputs and active-low reset.",u:"/doc/dmg_cells.html#drlatch_ee"},
 "eco_nand2":{h:"ECO_NAND2",a:"t_eco_nand2",d:"ECO configurable NAND gate with two inputs.",u:"/doc/dmg_cells.html#eco_nand2"},
 "full_add":{h:"FULL_ADD",a:"t_full_add",d:"Full adder.",u:"/doc/dmg_cells.html#full_add"},
+"ggnmos":{h:"GGNMOS",a:"t_ggnmos",d:"Grounded-Gate NMOS for ESD protection.",u:"/doc/dmg_cells.html#ggnmos"},
 "half_add":{h:"HALF_ADD",a:"t_half_add",d:"Half adder.",u:"/doc/dmg_cells.html#half_add"},
 "high_ram":{h:"HIGH_RAM",a:"t_high_ram",u:"/doc/dmg_cells.html#high_ram"},
 "mixer":{h:"MIXER",a:"t_mixer",d:"5-channel analog mixer.",u:"/doc/dmg_cells.html#mixer"},
@@ -1788,6 +1789,10 @@ var cells_cn={
 "gexu":{h:"GEXU",a:"c_gexu",t:"nand_latch",f:"apu-ch1",l:[-160.93,213.77,-159.89,215.83]},
 "gexy":{h:"GEXY",a:"c_gexy",t:"not_x1",f:"apu-control",l:[-181.43,213.78,-181.08,215.82]},
 "geze":{h:"GEZE",a:"c_geze",t:"or2",f:"ppu-xprio",l:[-189.52,110.51,-188.83,112.55]},
+"ggnmos_ne":{h:"GGNMOS_NE",a:"c_ggnmos_ne",t:"ggnmos",l:[-39.66,240.73,-32.36,248.06]},
+"ggnmos_nw":{h:"GGNMOS_NW",a:"c_ggnmos_nw",t:"ggnmos",l:[-39.33,8.73,-32.08,16.08]},
+"ggnmos_se":{h:"GGNMOS_SE",a:"c_ggnmos_se",t:"ggnmos",l:[-246.61,240.66,-239.36,247.95]},
+"ggnmos_sw":{h:"GGNMOS_SW",a:"c_ggnmos_sw",t:"ggnmos",l:[-246.42,8.69,-239.13,15.97]},
 "goba":{h:"GOBA",a:"c_goba",t:"not_if0",f:"ppu-bgscroll",l:[-145.24,110.52,-144.22,112.59]},
 "goby":{h:"GOBY",a:"c_goby",t:"not_if0",f:"ppu-oam",l:[-147.99,110.54,-146.96,112.57]},
 "goca":{h:"GOCA",a:"c_goca",t:"tffnl",f:"apu-ch2",l:[-87.6,213.81,-84.17,215.88]},
@@ -9800,6 +9805,10 @@ var cells_grp={
 "gexu":["gexu",],
 "gexy":["gexy",],
 "geze":["geze",],
+"ggnmos_ne":["ggnmos_ne",],
+"ggnmos_nw":["ggnmos_nw",],
+"ggnmos_se":["ggnmos_se",],
+"ggnmos_sw":["ggnmos_sw",],
 "goba":["goba",],
 "goby":["goby",],
 "goca":["goca",],
@@ -15828,8 +15837,8 @@ var wires_grp={
 };
 var qtree={p:[-256,0,0,256],d:[{p:[-128,0,0,128],d:[{p:[-64,0,0,64],d:[{p:[-32,0,0,32],c:["d4","d5",],w:[]}
 ,{p:[-32,32,0,64],c:["d1","d2","d3","d4",],w:[]}
-,{p:[-64,0,-32,32],d:[{p:[-48,0,-32,16],c:["d6",],w:["gnd","vdd",]}
-,{p:[-48,16,-32,32],c:["d4","d5","d6",],w:["~{a15_in}","~{d2_in}","~{d4_in}","~{d5_in}","gnd","lula","raby","rogy","rory","ruja","rune","ruxa","rypu","ryvo","seze","tamu","vdd",]}
+,{p:[-64,0,-32,32],d:[{p:[-48,0,-32,16],c:["d6","ggnmos_nw",],w:["gnd","vdd",]}
+,{p:[-48,16,-32,32],c:["d4","d5","d6","ggnmos_nw",],w:["~{a15_in}","~{d2_in}","~{d4_in}","~{d5_in}","gnd","lula","raby","rogy","rory","ruja","rune","ruxa","rypu","ryvo","seze","tamu","vdd",]}
 ,{p:[-64,0,-48,16],c:["d6","d7","md7",],w:["gnd","vdd",]}
 ,{p:[-64,16,-48,32],d:[{p:[-56,16,-48,24],c:["d6","d7",],w:["~{d6_in}","gnd","lula","rafy","rogy","ryda","vdd",]}
 ,{p:[-56,24,-48,32],c:["rera","ryvo","saza","seze",],w:["~{a15_in}","~{d2_in}","~{d3_in}","~{d5_in}","d3","d5","gnd","lula","raby","rera","resy","roru","rory","ruja","rulo","rune","ruxa","rypu","ryvo","saza","seze","vdd",]}
@@ -16019,7 +16028,7 @@ var qtree={p:[-256,0,0,256],d:[{p:[-128,0,0,128],d:[{p:[-64,0,0,64],d:[{p:[-32,0
 ,{p:[-64,192,-48,208],c:["celo","cemo","dala","dero","dova","doxa","elox",],w:["~{a1_in}","~{a2_in}","~{a3_in}","~{a4_in}","~{a6_in}","~{a7_in}","~{cemo}","~{dala}","~{sck}","~{sin}","apu_phi","apu_reset","bajo","bela","bevo","boku","bola","boty","bufo","byho","byla","caba","celo","cepu","ch2_1mhz","ch2_start","ch3_2mhz","ch3_frst","colo","const0","cotu","cyka","data_phase","defy","dero","dory","doxa","erus","gnd","osc_ena","reset","tyho","vdd",]}
 ,{p:[-64,208,-48,224],c:["faju","fety","foto","gafu","gase","gugu","gyra","gyry","hefo","hema","hera","hupa","hyle","japu","jera","juty",],w:["~{a1_in}","~{a3_in}","~{efal}","~{fety}","~{sck}","~{sin}","apu_reset","bajo","caba","ch2_1mhz","ch2_restart","ch3_2mhz","ch3_fdis","ch3_frst","ch3_ftick","ch3_restart","const0","data_phase","defy","faju","fety","foto","fuvo","gafu","gnd","gyra","gyry","hefo","hema","hera","huno","hupa","hyle","osc_ena","reset","tyho","vdd",]}
 ,]}
-,{p:[-64,224,-32,256],c:["~{cs}","~{rd}","a0","a1","a2","japu","jera","juty","keza",],w:["~{a0_in}","~{a1_in}","~{clk_in}","~{rd_in}","~{sck}","~{sin}","~{t1}","~{t2}","~{wr_in}","bajo","caba","const0","cotu","data_phase","gnd","hera","jacy","jera","jety","juty","keza","koty","kupo","osc_ena","reset","sck_dir","tyho","ugac","urun","usuf","uver","vdd",]}
+,{p:[-64,224,-32,256],c:["~{cs}","~{rd}","a0","a1","a2","ggnmos_ne","japu","jera","juty","keza",],w:["~{a0_in}","~{a1_in}","~{clk_in}","~{rd_in}","~{sck}","~{sin}","~{t1}","~{t2}","~{wr_in}","bajo","caba","const0","cotu","data_phase","gnd","hera","jacy","jera","jety","juty","keza","koty","kupo","osc_ena","reset","sck_dir","tyho","ugac","urun","usuf","uver","vdd",]}
 ,]}
 ,{p:[-128,128,-64,192],d:[{p:[-96,128,-64,160],d:[{p:[-80,128,-64,144],d:[{p:[-72,128,-64,136],c:["rage","rate","ravy","rolu","ruby","sala","somu","sotu","sufy","sulo","supo","suro","teka","tome","tuny","tyru","tyva",],w:["~{ff0f_wr}","~{rage}","~{reset2}","~{ruby}","~{subu}","~{sufy}","~{tyru}","~{tyva}","d3","d4","d5","gnd","lufe","mexu","mulo","peru","rage","rate","rega","rolu","rotu","roxu","ruby","rugy","sala","sufy","sulo","sura","teda","tope","tuby","tyju","tyru","tyva","vdd",]}
 ,{p:[-72,136,-64,144],c:["teka","tome","tuny","tyru","tyva","ubul","uket","unyk",],w:["~{ext_addr_en}","~{reset_div}","~{reset2}","~{subu}","~{t1}t2","~{teka}","~{tero}","~{tyru}","~{tyva}","~{uket}","~{unyk}","cpu_irq3","d3","d4","gnd","int_serial","lufe","pesu_const1","rotu","sulo","t1~{t2}","teka","tome","tuny","tyju","tyru","tyva","upyf","vdd",]}
@@ -16560,7 +16569,7 @@ var qtree={p:[-256,0,0,256],d:[{p:[-128,0,0,128],d:[{p:[-64,0,0,64],d:[{p:[-32,0
 ,{p:[-224,56,-216,64],c:["vare","vata","vate","voku","volo","vuty","vyro","vyzo","waly","wedy","wele","wolo","wufu","wyfu","wyho","wyru",],w:["~{taha}","~{typo}","~{vyzo}","clkpipe","gnd","lcd_x0","lcd_x1","lcd_x2","lcd_x3","lcd_x5","lcd_x6","mude","obj0px","sprite_palette","tafy","tago","tocu","topu","tuda","tuju","vata","vate","vdd","vepe","voku","volo","vosa","vugo","vumu","vuty","vyro","waly","wele","wolo","woxa","wufu","wyru","xado","xula",]}
 ,]}
 ,]}
-,{p:[-256,0,-224,32],c:["~{mcs}","lopu","lozo","lyky","lyle","ma12","ma6","ma7","maby","meco","mexa","mure","myzo",],w:["~{mcs_in}","~{mrd_in}","gnd","lefa","lopu","lozo","luby","lyky","lyle","maby","magu","meco","meda","mexa","mure","myzo","obj1px","pony","refo","ronu","rosu","soky","vdd","woxa","xula",]}
+,{p:[-256,0,-224,32],c:["~{mcs}","ggnmos_sw","lopu","lozo","lyky","lyle","ma12","ma6","ma7","maby","meco","mexa","mure","myzo",],w:["~{mcs_in}","~{mrd_in}","gnd","lefa","lopu","lozo","luby","lyky","lyle","maby","magu","meco","meda","mexa","mure","myzo","obj1px","pony","refo","ronu","rosu","soky","vdd","woxa","xula",]}
 ,{p:[-256,32,-224,64],d:[{p:[-240,32,-224,48],c:["~{mcs}","ma10","naty","nuva","pedu","pogu","pony","pyjo","ravo","rehu","remy","roby","ruze",],w:["~{mcs_in}","~{mrd_in}","clkpipe","gnd","magu","majo","meco","meda","mure","myxa","nuva","paty","pedu","pero","pofy","pogu","pony","ravo","refo","reho","rehu","remy","ronu","rosa","rosu","ruda","ruky","ruma","ruze","ryno","rypo","soky","solo","somy","sprite_on3","sprite_px_a2","sprite_px_a3","vdd","woxa","xula",]}
 ,{p:[-240,48,-224,64],d:[{p:[-232,48,-224,56],c:["somy","tece","towa","tozu","tuda","tuju",],w:["~{mrd_in}","~{vclk}","clkpipe","gnd","lcd_x0","lcd_x1","lcd_x2","lcd_x4","lcd_x6","meco","mure","pedu","ravo","remy","rosa","ruda","ruma","ruze","rypo","somy","sprite_on3","suky","tafy","tago","tece","towa","tozu","tuda","tuju","tujy","vage","vate","vdd",]}
 ,{p:[-232,56,-224,64],c:["vage","vate","vepe","vugo","vumu","vywa","weny","wevo","wyfu",],w:["~{mrd_in}","~{vclk}","gnd","lcd_x0","lcd_x1","lcd_x2","meco","mure","obj0px","remy","ruze","rypo","sprite_on3","sprite_palette","tafy","tago","topu","tuju","vage","vate","vdd","vepe","vugo","vumu","vywa","wele","woxa","xado",]}
@@ -16839,7 +16848,7 @@ var qtree={p:[-256,0,0,256],d:[{p:[-128,0,0,128],d:[{p:[-64,0,0,64],d:[{p:[-32,0
 ,{p:[-224,240,-208,256],c:["p12","p13",],w:["gnd","vdd",]}
 ,]}
 ,{p:[-256,192,-224,224],c:["gary","so1","so2","vin",],w:["~{cofy}","cela","gary","gnd","so1","so2","vdd","vin",]}
-,{p:[-256,224,-224,256],c:["p13","p14","p15","vin",],w:["~{cofy}","~{kely}","cela","gnd","kale","karu","vdd","vin",]}
+,{p:[-256,224,-224,256],c:["ggnmos_se","p13","p14","p15","vin",],w:["~{cofy}","~{kely}","cela","gnd","kale","karu","vdd","vin",]}
 ,]}
 ,]}
 ,]}
