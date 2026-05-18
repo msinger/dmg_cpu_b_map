@@ -1,8 +1,8 @@
 var wire_width=1;
 var cell_types={
-"amp":{h:"AMP",a:"t_amp",d:"Audio amplifier.",u:"/doc/dmg_cells.html#amp"},
-"amp_split_main":{h:"AMP_SPLIT_MAIN",a:"t_amp_split_main",d:"Audio amplifier without output transistors.",u:"/doc/dmg_cells.html#amp_split_main"},
-"amp_split_output":{h:"AMP_SPLIT_OUTPUT",a:"t_amp_split_output",d:"Output transistors for audio amplifier.",u:"/doc/dmg_cells.html#amp_split_output"},
+"amp":{h:"AMP",a:"t_amp",d:"CMOS differential amplifier with push-pull output.",u:"/doc/dmg_cells.html#amp"},
+"amp_split_main":{h:"AMP_SPLIT_MAIN",a:"t_amp_split_main",d:"CMOS differential amplifier without output transistors.",u:"/doc/dmg_cells.html#amp_split_main"},
+"amp_split_output":{h:"AMP_SPLIT_OUTPUT",a:"t_amp_split_output",d:"Output transistors for CMOS differential amplifier.",u:"/doc/dmg_cells.html#amp_split_output"},
 "and2":{h:"AND2",a:"t_and2",d:"AND gate with two inputs.",u:"/doc/dmg_cells.html#and2"},
 "and3":{h:"AND3",a:"t_and3",d:"AND gate with three inputs.",u:"/doc/dmg_cells.html#and3"},
 "and4":{h:"AND4",a:"t_and4",d:"AND gate with four inputs.",u:"/doc/dmg_cells.html#and4"},
